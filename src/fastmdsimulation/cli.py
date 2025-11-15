@@ -94,7 +94,7 @@ def _resolve_plan_from_pdb(pdb: str, outdir: str, config: str | None):
 def main():
     parser = argparse.ArgumentParser(
         prog="fastmds",
-        description="Automated MD simulation (OpenMM-first)"
+        description="Automated MD simulation (OpenMM-first). Supports both Systemic Simulations (multiple systems via YAML) and One-Shot Simulations (single PDB with overrides)."
     )
     parser.add_argument("-v", "--version", action="store_true", help="Print version and exit")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -102,15 +102,15 @@ def main():
     # Single entrypoint: simulate
     p_sim = sub.add_parser(
         "simulate",
-        help="Run from YAML (-system job.yml) or one-shot from PDB (-system protein.pdb)."
+        help="Run Systemic Simulation (-system job.yml) or One-Shot Simulation (-system protein.pdb)."
     )
     # Accept --system (preferred), -s (short), and -system (single-dash long) to match examples.
     p_sim.add_argument("-s", "--system", "-system", required=True,
-                       help="Path to input: job YAML (.yml/.yaml) or PDB (.pdb)")
+                       help="Path to input: YAML file for Systemic Simulation or PDB file for One-Shot Simulation")
     p_sim.add_argument("-o", "--output", default="simulate_output", type=str,
                        help="Output base directory (default: simulate_output)")
     p_sim.add_argument("--config", default=None,
-                       help="Optional overrides YAML (PDB flow only; ignored when system is a YAML)")
+                       help="Configuration overrides YAML (One-Shot Simulations only; ignored for Systemic Simulations)")
     p_sim.add_argument("--analyze", action="store_true",
                        help="Run analysis after simulation (FastMDAnalysis)")
     p_sim.add_argument("--frames", type=str, default=None,
@@ -140,13 +140,13 @@ def main():
     if args.cmd == "simulate":
         system = args.system
 
-        # YAML-driven path
+        # Systemic Simulation path (YAML-driven)
         if system.lower().endswith((".yml", ".yaml")):
             if args.config:
-                print("Warning: --config is ignored when a job YAML is provided.")
+                print("Warning: --config is ignored for Systemic Simulations (YAML files).")
             if args.dry_run:
                 plan = resolve_plan(system, args.output)
-                print("=== DRY RUN (YAML) ===")
+                print("=== DRY RUN (SYSTEMIC SIMULATION) ===")
                 print(f'Project: {plan["project"]}')
                 print(f'Output:  {plan["output_dir"]}')
                 print(
@@ -166,11 +166,11 @@ def main():
                 return
             project_dir = run_from_yaml(system, args.output)
 
-        # PDB one-shot path
+        # One-Shot Simulation path (PDB-driven)
         else:
             if args.dry_run:
                 plan = _resolve_plan_from_pdb(system, args.output, args.config)
-                print("=== DRY RUN (PDB) ===")
+                print("=== DRY RUN (ONE-SHOT SIMULATION) ===")
                 print(f'Project: {plan["project"]}')
                 print(f'Output:  {plan["output_dir"]}')
                 print(
