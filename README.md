@@ -21,6 +21,7 @@ cd FastMDSimulation
 # Create environment and install
 mamba env create -f environment.yml || conda env create -f environment.yml
 conda activate fastmdsimulation
+pip install .
 
 # Optional: Auto-detect and install CUDA support
 ./scripts/install_cuda.sh
@@ -383,11 +384,24 @@ After running any simulation, you'll get:
 ## Troubleshooting
 
 - **No CUDA in `Platforms:` list**  
-  On clusters, load the site CUDA module (e.g., `module load cuda/11.8`) *and* use `environment.yml` (CPU).  
-  On local workstations, use `environment.gpu.yml` to bundle `cudatoolkit`.
+  - **Local workstations**: Run `./scripts/install_cuda.sh` after creating the environment to auto-detect and install CUDA support.
+  - **HPC/Cluster systems**: Use your system's CUDA modules (e.g., `module load cuda/11.8`) instead of the CUDA installer script.
+  - **CPU-only systems**: Simulations will run on CPU - no action needed.
 
 - **Mixed CUDA runtimes**  
-  Avoid mixing module CUDA and conda `cudatoolkit` in the same job. Pick one strategy.
+  Avoid mixing module CUDA and conda `cudatoolkit` in the same job. Pick one strategy:
+  - **HPC**: Use `module load cuda/X.X` + base environment (no cudatoolkit)
+  - **Local**: Use `./scripts/install_cuda.sh` to install cudatoolkit in conda environment
+
+- **CUDA installation script fails**  
+  If `./scripts/install_cuda.sh` encounters issues, you can manually install:
+  ```bash
+  # Check available CUDA versions
+  conda search -c conda-forge cudatoolkit
+  
+  # Install specific version (adjust as needed)
+  conda install -c conda-forge cudatoolkit=11.8
+  ```
 
 - **PDBFixer failed**  
   The fixer is strict by design. Inspect the error in `fastmds.log`, repair upstream, or provide a vetted `fixed_pdb:` path.
@@ -395,6 +409,19 @@ After running any simulation, you'll get:
 - **Different log look**  
   FastMDSimulation uses a compact, icon‑and‑color console style (or `plain` if you set `defaults.log_style: plain` or `FASTMDS_LOG_STYLE=plain`).  
   Project logs (`fastmds.log`) are always plain ISO timestamps.
+
+- **Environment creation fails**
+  If `mamba` fails, it will automatically fall back to conda. For persistent issues:
+```bash
+# Remove existing environment and retry
+conda env remove -n fastmdsimulation
+mamba env create -f environment.yml
+```
+- **Package not found after installation**
+Ensure you've activated the environment: `conda activate fastmdsimulation` and installed in development mode: `pip install .`
+
+- **Analysis fails**
+Ensure `fastmdanalysis>=1.0.0` is installed. Check fastmds.log for specific error messages.
 
 
 ---
