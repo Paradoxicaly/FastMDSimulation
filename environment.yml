@@ -1,0 +1,15 @@
+name: fastmds
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - openmm=8.*                 # OpenMM 8 (modern 'openmm' namespace)
+  - openmmforcefields>=0.11    # CHARMM36, TIP3P, etc.
+  - pdbfixer>=1.8
+  - mdtraj>=1.9.9
+  - pyyaml>=6
+  - rich>=13
+  - pip
+  - pip:
+      - fastmdanalysis>=0.1.0  # optional, used by --analyze

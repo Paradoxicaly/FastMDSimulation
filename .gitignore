@@ -1,0 +1,167 @@
+# ---------------------------
+# Python bytecode / caches
+# ---------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# C extensions
+*.so
+*.pyd
+*.dll
+
+# ---------------------------
+# Packaging / build artifacts
+# ---------------------------
+build/
+dist/
+.eggs/
+*.egg-info/
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Installer / pip logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---------------------------
+# Virtual environments
+# ---------------------------
+.env
+.venv
+env/
+venv/
+ENV/
+conda-env/
+.conda/
+*.env
+*.venv
+.python-version
+
+# ---------------------------
+# Testing / coverage
+# ---------------------------
+.tox/
+.nox/
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+htmlcov/
+*.cover
+*.py,cover
+*.pytest_cache/
+
+# ---------------------------
+# Type checking / linters
+# ---------------------------
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.ruff_cache/
+.pyright/
+
+# ---------------------------
+# Jupyter / notebooks
+# ---------------------------
+.ipynb_checkpoints/
+*.ipynb~*
+
+# ---------------------------
+# Editors / IDEs
+# ---------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# ---------------------------
+# OS-specific noise
+# ---------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.swp
+*.swo
+
+# ---------------------------
+# Documentation builds
+# ---------------------------
+docs/_build/
+docs/_autosummary/
+site/
+
+# ---------------------------
+# Project outputs (simulation & analysis)
+# NOTE: We keep examples/ source PDBs in repo; do NOT ignore *.pdb globally.
+#       All heavy artifacts land in *_output/ or the named folders below.
+# ---------------------------
+simulate_output/
+analysis_output/
+analyze_output/
+reports/
+logs/
+*_output/
+*_OUTPUT/
+*_out/
+*_results/
+
+# Optional: common heavy MD files inside output dirs (redundant if dirs ignored)
+simulate_output/**/traj.dcd
+simulate_output/**/state.chk
+simulate_output/**/state.log
+simulate_output/**/stage.json
+simulate_output/**/topology.pdb
+simulate_output/**/meta.json
+simulate_output/**/job.auto.yml
+simulate_output/**/job.yml
+analysis_output/**/*
+analyze_output/**/*
+
+# ---------------------------
+# Checkpoints / restarts (generic patterns if they slip outside output dirs)
+# ---------------------------
+**/*.chk
+**/*.cpt
+**/*.rst
+
+# ---------------------------
+# Large trajectory formats (only if outside output dirs; comment out if needed)
+# (We intentionally do NOT ignore *.pdb globally; examples/ contains reference PDBs.)
+# ---------------------------
+# **/*.dcd
+# **/*.xtc
+# **/*.trr
+# **/*.nc
+# **/*.mdcrd
+# **/*.psf
+# **/*.prmtop
+# **/*.gro
+# **/*.top
+
+# ---------------------------
+# Temporary / scratch
+# ---------------------------
+*.tmp
+*.bak
+*.orig
+*.rej
+*.log
+
+# ---------------------------
+# Archives
+# ---------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+

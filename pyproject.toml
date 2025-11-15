@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastmdsimulation"
+version = "0.1.0"
+description = "Automated Molecular Dynamics Simulation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Adekunle Aina" }]
+dependencies = [
+  "PyYAML>=6.0.1",
+  "rich>=13.7.0"
+]
+
+[project.optional-dependencies]
+analysis = ["fastmdanalysis>=0.1.0"]
+
+[project.scripts]
+fastmds = "fastmdsimulation.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["fastmdsimulation*"]

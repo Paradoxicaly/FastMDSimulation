@@ -1,0 +1,130 @@
+# ============================
+# FastMDSimulation Job 
+# ============================
+
+project: "TrpCage2"
+
+# ----------------------------
+# Systems (choose ONE style)
+# ----------------------------
+
+systems:
+  # ---- PDB route (default): we will PDBFix with the given pH, solvate, add ions, then parameterize with the forcefield ----
+  - id: "trpcage2"
+    pdb: "trpcage/trpcage.pdb"              # raw PDB -> will be fixed automatically
+    # fixed_pdb: "path/to/already_fixed.pdb"  # OPTIONAL: if provided, fixer is skipped for this system
+    # Optional per-system FF override (else defaults.forcefield is used)
+    # forcefield: ["charmm36.xml", "charmm36/water.xml"]
+
+  # ---- AMBER route (parameterized) ----
+  # - id: "amberSys"
+  #   prmtop: "path/to/system.prmtop"
+  #   inpcrd: "path/to/system.inpcrd"        # or rst7: "path/to/system.rst7"
+
+  # ---- GROMACS route (parameterized) ----
+  # - id: "gmxSys"
+  #   top: "path/to/system.top"
+  #   gro: "path/to/system.gro"
+  #   # Optional: include additional .itp files or directories they live in
+  #   # itp: ["path/include1/ions.itp", "path/include2/posre.itp"]
+  #   # include_dirs: ["path/include1", "path/include2"]
+
+  # ---- CHARMM route (parameterized) ----
+  # - id: "charmmSys"
+  #   psf: "path/to/system.psf"
+  #   # Coordinates (one of):
+  #   # crd: "path/to/system.crd"
+  #   # pdb: "path/to/system_coords.pdb"
+  #   # Parameters (any of these; lists allowed)
+  #   params: ["toppar/par_all36m_prot.prm", "toppar/top_all36_prot.rtf", "toppar/water_model.str"]
+  #   # or:
+  #   # prm: ["par_all36m_prot.prm"]
+  #   # rtf: ["top_all36_prot.rtf"]
+  #   # str: ["water_model.str"]
+
+# ----------------------------
+# Global defaults (apply to all runs unless overridden)
+# ----------------------------
+
+defaults:
+  # Engine/platform
+  engine: openmm
+  platform: auto                        # auto → CUDA → OpenCL → CPU
+  platform_properties: {}               # e.g., { CudaPrecision: single, CudaDeviceIndex: "0" }
+
+  # Temperature & timestep (also used by integrators that need them)
+  temperature_K: 300
+  timestep_fs: 2.0
+  friction_ps: 1.0                      # used by Langevin/Brownian variants
+  constraints: HBonds                   # HBonds | AllBonds | HAngles | none
+
+  # Minimization
+  minimize_tolerance_kjmol_per_nm: 10.0 # OpenMM expects energy/length units
+  minimize_max_iterations: 0            # 0 = no cap
+
+  # Reporting
+  report_interval: 500                 # steps
+  checkpoint_interval: 5000            # steps
+
+  # Logging (console style picked up by CLI; file logs are plain)
+  log_style: pretty                     # pretty | plain
+
+  # PDBFixer (applies whenever a raw PDB is supplied)
+  ph: 7.0                               # pH used by PDBFixer when adding hydrogens
+
+  # Solvation/ions (PDB route only)
+  forcefield: ["charmm36.xml", "charmm36/water.xml"]  # used for PDB route
+  box_padding_nm: 1.0
+  ionic_strength_molar: 0.15
+  neutralize: true
+  ions: NaCl                            # NaCl | KCl | {positiveIon: "K+", negativeIon: "Cl-"}
+
+  # Barostat (used during NPT stages)
+  pressure_atm: 1.0
+
+  # -------- Integrator selection --------
+  # Supported: langevin | brownian | verlet | variable_langevin | variable_verlet | langevin_middle
+  integrator:
+    name: langevin_middle
+    timestep_fs: 4.0                    # falls back to defaults.timestep_fs if omitted
+    friction_ps: 1.0                    # falls back to defaults.friction_ps if omitted
+    temperature_K: 300                  # falls back to defaults.temperature_K if omitted
+    # error_tolerance: 0.001            # only for variable_* integrators
+
+  # -------- OpenMM createSystem passthrough --------
+  # These apply to PDB **and** to parameterized (AMBER/GROMACS/CHARMM) routes.
+  # They map to ForceField/GromacsTop/AmberPrmtop/CharmmPSF createSystem(**kwargs).
+  create_system:
+    nonbondedMethod: PME                # NoCutoff | CutoffNonPeriodic | CutoffPeriodic | PME | Ewald
+    nonbondedCutoff_nm: 1.0
+    useSwitchingFunction: true
+    switchDistance_nm: 0.9
+    ewaldErrorTolerance: 0.0005
+    constraints: HBonds                 # HBonds | AllBonds | HAngles | none  (overrides defaults.constraints if given)
+    rigidWater: true
+    hydrogenMass_amu: 3.0               # HMR; consider 3.0 for 3–4 fs with LangevinMiddle
+#   longRangeDispersionCorrection: true # maps to useDispersionCorrection
+    removeCMMotion: false               # if true, adds CMMotionRemover force
+
+# ----------------------------
+# Stages (per-run)
+# ----------------------------
+# Defaults mirror the "full" pipeline (~0.5 ns NVT, 1 ns NPT, 2 ns production @ 2 fs)
+stages:
+  - { name: minimize,   steps: 0 }                 # minimization only calls the minimizer; no trajectory
+  - { name: nvt,        steps: 125000, ensemble: NVT }    # ~500 ps
+  - { name: npt,        steps: 250000, ensemble: NPT }    # ~1 ns
+  - { name: production, steps: 500000, ensemble: NPT }   # ~2 ns
+  # You can optionally override reporting per-stage:
+  # - name: nvt
+  #   steps: 250000
+  #   ensemble: NVT
+  #   report_interval: 1000
+  #   checkpoint_interval: 10000
+
+# ----------------------------
+# Temperature sweep (optional)
+# ----------------------------
+sweep:
+  temperature_K: [300]                  # e.g., [290, 300, 310]
+

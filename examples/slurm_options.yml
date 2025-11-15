@@ -1,0 +1,10 @@
+
+account: your_account
+partition: gpu
+time: "02:00:00"
+gpus: 1
+nodes: 1
+ntasks: 1
+analyze:
+  partition: gpu
+  time: "00:30:00"

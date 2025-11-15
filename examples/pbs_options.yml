@@ -1,0 +1,9 @@
+
+account: your_account
+queue: gpuq
+walltime: "02:00:00"
+gpus: 1
+ncpus: 4
+analyze:
+  queue: gpuq
+  walltime: "00:30:00"
