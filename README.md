@@ -2,80 +2,29 @@
 
 Automated Molecular Dynamics Simulation — OpenMM‑based one‑liner MD with a simple CLI & Python API. Optional post‑run analysis via **FastMDAnalysis**.
 
-- **Pipeline:** PDBFixer (if needed) → solvate+ions → minimize → NVT → NPT → production  
+- **Pipeline:** PDBFixer (if needed) → solvate + ions → minimize → NVT → NPT → production  
 - **Reproducible:** YAML job files **or** one‑shot from PDB with optional overrides  
-- **Analysis:** `--analyze` invokes `fastmda analyze` (supports `--frames`, `--atoms`, `--slides`)  
+- **Analysis:** `--analyze` invokes `fastmda analyze` (supports `--atoms`, `--frames`, `--slides`)  
 - **HPC‑ready:** Works on CPU, NVIDIA GPUs (CUDA), and clusters with module‑provided CUDA  
-- **OpenMM 8:** Modern `openmm` namespace; defaults to **CHARMM36** + TIP3P
+- **OpenMM 8:** Modern `openmm` namespace; defaults to **CHARMM36** + TIP3P  
+- **Integrators:** Curated set, **now includes `LangevinMiddleIntegrator`** for stable larger timesteps (with HMR).
 
 ---
 
 ## Installation (Conda‑only)
 
-We recommend **Miniforge** (conda‑forge first). This avoids mixing package channels and makes GPU installs predictable.
+We recommend **Miniforge** (conda‑forge first). If `mamba` isn’t present after installing Miniforge, add it with:
+```bash
+conda install -n base -c conda-forge mamba
+```
 
 ### 1) Install Miniforge
-
-If `mamba` isn’t present after installing Miniforge, you can add it with `conda install -n base -c conda-forge mamba`.
-
-#### macOS (Apple Silicon / arm64)
+Grab the installer for your OS from the Miniforge releases page and run it. Then:
 ```bash
-curl -L -o "$HOME/Miniforge3-MacOSX-arm64.sh" \
-  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh"
-bash "$HOME/Miniforge3-MacOSX-arm64.sh" -b -p "$HOME/miniforge3"
-source "$HOME/miniforge3/etc/profile.d/conda.sh"
-conda init zsh
-exec $SHELL -l
-mamba --version || true
-conda --version
-```
-
-#### macOS (Intel / x86_64)
-```bash
-curl -L -o "$HOME/Miniforge3-MacOSX-x86_64.sh" \
-  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh"
-bash "$HOME/Miniforge3-MacOSX-x86_64.sh" -b -p "$HOME/miniforge3"
-source "$HOME/miniforge3/etc/profile.d/conda.sh"
-conda init zsh
-exec $SHELL -l
-mamba --version || true
-conda --version
-```
-
-#### Linux (x86_64)
-```bash
-curl -L -o "$HOME/Miniforge3-Linux-x86_64.sh" \
-  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
-bash "$HOME/Miniforge3-Linux-x86_64.sh" -b -p "$HOME/miniforge3"
+# Initialize your shell (example: zsh on macOS)
 source "$HOME/miniforge3/etc/profile.d/conda.sh"
 conda init "$(basename "$SHELL")"
 exec $SHELL -l
-mamba --version || true
-conda --version
-```
-
-#### Linux (ARM64 / aarch64)
-```bash
-curl -L -o "$HOME/Miniforge3-Linux-aarch64.sh" \
-  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh"
-bash "$HOME/Miniforge3-Linux-aarch64.sh" -b -p "$HOME/miniforge3"
-source "$HOME/miniforge3/etc/profile.d/conda.sh"
-conda init "$(basename "$SHELL")"
-exec $SHELL -l
-mamba --version || true
-conda --version
-```
-
-#### Windows (PowerShell)
-```powershell
-$inst = "$env:USERPROFILE\Downloads\Miniforge3-Windows-x86_64.exe"
-Invoke-WebRequest -Uri "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe" -OutFile $inst
-Start-Process -Wait $inst
-& "$env:USERPROFILE\miniforge3\condabin\conda.bat" init powershell
-# Close and reopen PowerShell
-conda --version
-# Optional: add mamba
-conda install -n base -c conda-forge mamba
 ```
 
 ### 2) Create the environment
@@ -98,19 +47,13 @@ mamba env create -f environment.gpu.yml || conda env create -f environment.gpu.y
 conda activate fastmds
 ```
 
-> **HPC note:** If your site provides CUDA via modules, do **not** install `cudatoolkit` in the env. Use:
-> ```bash
-> module load cuda/11.8  # or the site default
-> ```
+> **HPC note:** If your site provides CUDA via modules, do **not** install `cudatoolkit` in the env. Use e.g. `module load cuda/11.8` in your job script.
 
 ### 3) Install FastMDSimulation into the env
-
 From the project root:
 ```bash
 pip install -e .
 ```
-
-> We intentionally **do not** publish on PyPI because core dependencies (e.g., OpenMM) are conda‑first; using conda avoids binary/ABI issues.
 
 ### 4) Verify OpenMM sees your platforms
 ```bash
@@ -127,7 +70,7 @@ defaults:
   platform: CUDA   # or OpenCL / CPU
 ```
 
-At runtime, the engine logs:
+At runtime, the engine logs e.g.:
 ```
 Platform: CUDA (CudaDeviceIndex=0, CudaPrecision=single)
 ```
@@ -137,21 +80,18 @@ Platform: CUDA (CudaDeviceIndex=0, CudaPrecision=single)
 ## Quick Start
 
 ### YAML‑driven (recommended for reproducibility)
-
 ```bash
-fastmds simulate -system examples/waterbox/job.yml -o simulate_output --analyze
+fastmds simulate -system examples/waterbox/job.yml
 ```
 
 ### One‑shot from PDB (with overrides)
-
 ```bash
-fastmds simulate -system examples/trp_cage/trp_cage.pdb -o simulate_output \
-  --config examples/config.quick.yml \
-  --analyze --frames "0,-1,10" --atoms protein
+fastmds simulate -system examples/trpcage/trpcage.pdb --config examples/config.quick.yml
 ```
 
-**Analysis flags** (only when `--analyze` is present):
+> You can always add an explicit output directory with `-o <dir>` and analysis flags like `--analyze`, `--atoms`, `--frames`, `--slides` as needed.
 
+**Analysis flags** (only when `--analyze` is present):
 - `--slides` (default **True**; set `--slides False` to disable slides)
 - `--frames` (e.g., `"0,-1,10"` subsample; `"200"` first 200 frames; FastMDAnalysis format)
 - `--atoms` (e.g., `protein`, `"protein and name CA"`)
@@ -162,18 +102,19 @@ Analysis output is streamed line‑by‑line and prefixed with `[fastmda]` in yo
 
 ## Accepted Inputs & Behavior
 
-You can supply **raw structures** or **parameterized systems** in your YAML. The orchestrator normalizes each entry and the engine dispatches to the right OpenMM loader.
+Supply **raw structures** or **parameterized systems** in your YAML. The orchestrator normalizes each entry and the engine dispatches to the right OpenMM loader.
 
 ### PDB route (auto‑prepared by FastMDSimulation)
 ```yaml
 systems:
   - id: MyProt
-    pdb: path/to/protein.pdb        # raw PDB → PDBFixer → *_fixed.pdb → solvate+ions → run
+    pdb: path/to/protein.pdb        # raw PDB → PDBFixer (strict) → *_fixed.pdb → solvate+ions → run
     # OR if you already vetted a fixed file:
     # fixed_pdb: path/to/protein_fixed.pdb  # skips PDBFixer
 ```
-- PDB inputs are **strictly** fixed with PDBFixer (missing atoms/residues, hydrogens at pH 7.0). Failures abort.
+- PDB inputs are **strictly** fixed with PDBFixer (missing atoms/residues, hydrogens). Failures abort.
 - After fixing, the system is **solvated (TIP3P)**, ions are added (NaCl by default), and CHARMM36 is used unless overridden.
+- pH for hydrogen addition can be set via `defaults.ph` or per-system `ph` (default 7.0).
 
 ### AMBER route (already parameterized)
 ```yaml
@@ -184,7 +125,6 @@ systems:
     inpcrd: path/to/system.inpcrd   # or rst7:
     # rst7: path/to/system.rst7
 ```
-- Loaded via `AmberPrmtopFile/AmberInpcrdFile`. Box vectors are propagated when present.
 
 ### GROMACS route (already parameterized)
 ```yaml
@@ -192,12 +132,11 @@ systems:
   - id: MyGro
     type: gromacs
     top: path/to/topol.top
-    gro: path/to/conf.gro           # or g96:
-    # g96: path/to/conf.g96
-    # Optional additional includes:
+    gro: path/to/conf.gro
+    # optional
     itp: [path/to/ffcustom.itp, path/to/ligand.itp]
+    include_dirs: [path/to/includes]   # these are passed to GromacsTopFile
 ```
-- Loaded via `GromacsTopFile/GromacsGroFile`. Periodic box vectors are used from the coordinate file.
 
 ### CHARMM route (already parameterized)
 ```yaml
@@ -239,8 +178,8 @@ defaults:
   ionic_strength_molar: 0.15
   neutralize: true
   ions: NaCl                  # "NaCl" | "KCl" | {positiveIon: "K+", negativeIon: "Cl-"}
-  # integrator: langevin      # default; see below
-  # log_style: pretty         # pretty | plain (console only)
+  ph: 7.0
+  # integrator defaults to 'langevin'; see full reference below
 
 stages:
   - { name: minimize,   steps: 0 }
@@ -250,23 +189,88 @@ stages:
 
 systems:
   - id: TrpCage
-    pdb: examples/trp_cage/trp_cage.pdb
+    pdb: examples/trpcage/trpcage.pdb
 ```
 
-### Integrator selection
-Set via `defaults.integrator`:
+---
+
+## YAML Reference (full)
+
+Everything shown below is **optional** unless noted. Omitted fields fall back to sensible defaults.
+
 ```yaml
+project: TrpCage2
+
 defaults:
+  engine: openmm
+  # Platform + properties
+  platform: auto                        # auto → CUDA → OpenCL → CPU
+  platform_properties:
+    CudaPrecision: single               # or double; device‑dependent
+    CudaDeviceIndex: "0"                # choose GPU id when using CUDA
+
+  # Thermostat & integrator
   integrator:
-    name: langevin            # langevin | brownian | verlet | variable_langevin | variable_verlet
+    name: langevin_middle               # langevin | brownian | verlet | variable_langevin | variable_verlet | langevin_middle
     timestep_fs: 2.0
-    friction_ps: 1.0          # used by langevin/brownian
-    error_tolerance: 0.001    # used by variable_* integrators
+    friction_ps: 1.0                    # used by langevin/brownian/langevin_middle
+    temperature_K: 300
+    error_tolerance: 0.001              # used by variable_*
+
+  # Barostat (used for NPT stages)
+  pressure_atm: 1.0
+
+  # Reporting
+  report_interval: 1000
+  checkpoint_interval: 10000
+
+  # Preparation & FF (PDB route only)
+  forcefield: ["charmm36.xml", "charmm36/water.xml"]
+  box_padding_nm: 1.0
+  ionic_strength_molar: 0.15
+  neutralize: true
+  ions: NaCl                             # "NaCl" | "KCl" | {positiveIon: "K+", negativeIon: "Cl-"}
+  ph: 7.0                                # pH used by PDBFixer
+
+  # Energy minimization
+  minimize_tolerance_kjmol_per_nm: 10.0
+  minimize_max_iterations: 0
+
+  # Constraint handling (default for createSystem unless overridden there)
+  constraints: HBonds                    # HBonds | AllBonds | HAngles | none
+
+  # Pass‑through to ForceField.createSystem(...) across all routes
+  create_system:
+    nonbondedMethod: PME                 # NoCutoff | CutoffNonPeriodic | CutoffPeriodic | PME | Ewald
+    nonbondedCutoff_nm: 1.0
+    useSwitchingFunction: true           # Only meaningful for Cutoff* methods
+    # switchDistance_nm: 0.9             # Only valid when useSwitchingFunction is true AND a Cutoff* method is used
+    ewaldErrorTolerance: 0.0005
+    constraints: HBonds                  # overrides defaults.constraints if provided
+    rigidWater: true
+    hydrogenMass_amu: 3.0                # HMR; enables 3–4 fs with LangevinMiddle
+    longRangeDispersionCorrection: true  # maps to useDispersionCorrection
+    removeCMMotion: false                # adds a CMMotionRemover force when true
+
+  # Console logging style (file logs are always plain ISO)
+  log_style: pretty                      # pretty | plain
+
+stages:
+  - { name: minimize,   steps: 25000 }                # increase if you want a deeper minimization
+  - { name: nvt,        steps: 250000, ensemble: NVT }     # 500 ps @ 2 fs
+  - { name: npt,        steps: 500000, ensemble: NPT }     # 1 ns
+  - { name: production, steps: 1000000, ensemble: NPT }    # 2 ns
+
+systems:
+  - id: trpcage2
+    pdb: examples/trpcage/trpcage.pdb    # raw PDB → PDBFixer (strict) → _build/trpcage2_fixed.pdb
+    # fixed_pdb: path/to/already_fixed.pdb  # use this to skip PDBFixer
+
+sweep:
+  temperature_K: [300]
 ```
 
-### Logging style
-- Console style: `defaults.log_style: pretty | plain` (or env `FASTMDS_LOG_STYLE`).
-- Project log file is always plain ISO timestamps: `<output>/<project>/fastmds.log`.
+> **Tip:** When you enable `useSwitchingFunction`, only set `switchDistance_nm` if you also choose a `Cutoff*` nonbonded method. Passing `switchingDistance` with PME/Ewald raises an OpenMM error.
 
 ---
 
@@ -275,41 +279,45 @@ defaults:
 ```python
 from fastmdsimulation import FastMDSimulation
 
-fastmds = FastMDSimulation("examples/trp_cage/trp_cage.pdb",
-                           output="simulate_output",
-                           config="examples/config.quick.yml")  # optional for overrides
-project_dir = fastmds.simulate(analyze=True,
-                               frames="0,-1,10",
-                               atoms="protein",
-                               slides=True)
+fastmds = FastMDSimulation(
+    "examples/trpcage/trpcage.pdb",
+    output="simulate_output",             # optional
+    config="examples/config.quick.yml"    # optional overrides when using a PDB
+)
+project_dir = fastmds.simulate(
+    analyze=True,                         # optional
+    atoms="protein",                      # optional
+    slides=True                           # optional (default True)
+)
 print("Outputs in:", project_dir)
 ```
 
 - If `system` ends with `.yml/.yaml`, the YAML is executed; `config` is ignored.
-- If `system` ends with `.pdb`, PDBFixer runs (strict), then a temporary `job.auto.yml` is generated and executed.
+- If `system` is a `.pdb`, PDBFixer runs (strict), then a temporary `job.auto.yml` is generated and executed.
 
 ---
 
 ## Dry‑run (plan only)
 
-Print stages, approx ps, output dirs, and the exact `fastmda analyze` commands (when `--analyze` is present):
+Print stages, approximate ps, output dirs, and the exact `fastmda analyze` commands (when `--analyze` is present):
 
 ```bash
 # YAML
-fastmds simulate -system job.yml -o simulate_output --analyze --frames "0,-1,10" --atoms protein --dry-run
+fastmds simulate -system job.yml --analyze --dry-run
 
 # PDB
-fastmds simulate -system examples/trp_cage/trp_cage.pdb -o simulate_output \
-  --config examples/config.quick.yml --analyze --dry-run
+fastmds simulate -system examples/trpcage/trpcage.pdb --config examples/config.quick.yml --analyze --dry-run
 ```
+
+> You can add `-o <output-dir>`, `--atoms`, `--frames`, or `--slides` to both commands as needed.
 
 ---
 
 ## Outputs
 
 ```
-simulate_output/<project>/
-  fastmds.log                     # project log (plain text)
+<output>/<project>/
+  fastmds.log                     # project log (plain text; records versions & CLI)
   inputs/                         # auto-populated provenance bundle
     job.yml
     <system-id>/                  # per-system inputs (engine-ready + originals when applicable)
@@ -324,7 +332,7 @@ simulate_output/<project>/
     production/
       traj.dcd | state.log | state.chk | stage.json | topology.pdb
     done.ok
-  meta.json                       # start/end time, job.yml SHA256
+  meta.json                       # start/end time, job.yml SHA256, CLI argv, versions
 ```
 
 ---
@@ -342,8 +350,8 @@ simulate_output/<project>/
   The fixer is strict by design. Inspect the error in `fastmds.log`, repair upstream, or provide a vetted `fixed_pdb:` path.
 
 - **Different log look**  
-  FastMDSimulation uses a compact, icon‑and‑color console style (or `plain` if you set `log_style: plain` or `FASTMDS_LOG_STYLE=plain`).  
-  FastMDAnalysis prints timestamped Python‑logging lines. We forward them prefixed with `[fastmda]` for clarity.
+  FastMDSimulation uses a compact, icon‑and‑color console style (or `plain` if you set `defaults.log_style: plain` or `FASTMDS_LOG_STYLE=plain`).  
+  Project logs (`fastmds.log`) are always plain ISO timestamps.
 
 ---
 
