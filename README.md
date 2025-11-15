@@ -1,30 +1,71 @@
 # FastMDSimulation
 
-Automated Molecular Dynamics Simulation — OpenMM‑based one‑liner MD with a simple CLI & Python API. Optional post‑run analysis via **FastMDAnalysis**.
+Automated Molecular Dynamics Simulation — with a single command. 
 
-- **Pipeline:** PDBFixer (if needed) → solvate + ions → minimize → NVT → NPT → production  
+- **Pipeline:** prepare → solvate + ions → minimize → NVT → NPT → production  
 - **Reproducible:** YAML job files **or** one‑shot from PDB with optional overrides  
-- **Analysis:** `--analyze` invokes `fastmda analyze` (supports `--atoms`, `--frames`, `--slides`)  
+- **Analysis:** Optional post‑MD analysis via `FastMDAnalysis` (supports auto-generated slide deck)  
 - **HPC‑ready:** Works on CPU, NVIDIA GPUs (CUDA), and clusters with module‑provided CUDA  
-- **OpenMM 8:** Modern `openmm` namespace; defaults to **CHARMM36** + TIP3P  
-- **Integrators:** Curated set, **now includes `LangevinMiddleIntegrator`** for stable larger timesteps (with HMR).
+- **MD Engine:** Modern `openmm 8` that defaults to `CHARMM36` forcefile + `TIP3P` water model  
+- **Dual Interface:** A simple command-line interface (CLI) and Python API. 
 
 ---
 
 ## Installation (Conda‑only)
 
-We recommend **Miniforge** (conda‑forge first). If `mamba` isn’t present after installing Miniforge, add it with:
-```bash
-conda install -n base -c conda-forge mamba
-```
+We recommend **Miniforge** (conda‑forge first) and **Mamba**. 
 
-### 1) Install Miniforge
+### 1) Install Miniforge and Mamba
 Grab the installer for your OS from the Miniforge releases page and run it. Then:
 ```bash
 # Initialize your shell (example: zsh on macOS)
 source "$HOME/miniforge3/etc/profile.d/conda.sh"
 conda init "$(basename "$SHELL")"
 exec $SHELL -l
+mamba --version || true
+conda --version
+```
+
+If `mamba` isn’t present after installing Miniforge, add it with:
+```bash
+conda install -n base -c conda-forge mamba
+```
+
+### [Alternatively] Install Miniforge from the command-line
+#### macOS (Apple Silicon / arm64)
+```bash
+curl -L -o "$HOME/Miniforge3-MacOSX-arm64.sh" \
+  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh"
+bash "$HOME/Miniforge3-MacOSX-arm64.sh" -b -p "$HOME/miniforge3"
+```
+#### macOS (Intel / x86_64)
+```bash
+curl -L -o "$HOME/Miniforge3-MacOSX-x86_64.sh" \
+  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh"
+bash "$HOME/Miniforge3-MacOSX-x86_64.sh" -b -p "$HOME/miniforge3"
+```
+#### Linux (x86_64)
+```bash
+curl -L -o "$HOME/Miniforge3-Linux-x86_64.sh" \
+  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+bash "$HOME/Miniforge3-Linux-x86_64.sh" -b -p "$HOME/miniforge3"
+```
+#### Linux (ARM64 / aarch64)
+```bash
+curl -L -o "$HOME/Miniforge3-Linux-aarch64.sh" \
+  "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh"
+bash "$HOME/Miniforge3-Linux-aarch64.sh" -b -p "$HOME/miniforge3"
+```
+#### Windows (PowerShell)
+```powershell
+$inst = "$env:USERPROFILE\Downloads\Miniforge3-Windows-x86_64.exe"
+Invoke-WebRequest -Uri "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe" -OutFile $inst
+Start-Process -Wait $inst
+& "$env:USERPROFILE\miniforge3\condabin\conda.bat" init powershell
+
+# Close and reopen PowerShell, then
+mamba --version || true
+conda --version
 ```
 
 ### 2) Create the environment
@@ -53,6 +94,13 @@ conda activate fastmds
 From the project root:
 ```bash
 pip install -e .
+```
+
+#### Help & Version
+```bash
+fastmds -h
+fastmds simulate -h
+fastmds -v
 ```
 
 ### 4) Verify OpenMM sees your platforms
@@ -188,7 +236,7 @@ stages:
   - { name: production, steps: 10000, ensemble: NPT }
 
 systems:
-  - id: TrpCage
+  - id: trpcage
     pdb: examples/trpcage/trpcage.pdb
 ```
 
@@ -199,7 +247,7 @@ systems:
 Everything shown below is **optional** unless noted. Omitted fields fall back to sensible defaults.
 
 ```yaml
-project: TrpCage2
+project: TrpCage
 
 defaults:
   engine: openmm
@@ -262,12 +310,14 @@ stages:
   - { name: production, steps: 1000000, ensemble: NPT }    # 2 ns
 
 systems:
-  - id: trpcage2
+  - id: trpcage1
     pdb: examples/trpcage/trpcage.pdb    # raw PDB → PDBFixer (strict) → _build/trpcage2_fixed.pdb
     # fixed_pdb: path/to/already_fixed.pdb  # use this to skip PDBFixer
+  - id: trpcage2
+    pdb: examples/trpcage/trpcage.pdb
 
 sweep:
-  temperature_K: [300]
+  temperature_K: [300, 310, 320]
 ```
 
 > **Tip:** When you enable `useSwitchingFunction`, only set `switchDistance_nm` if you also choose a `Cutoff*` nonbonded method. Passing `switchingDistance` with PME/Ewald raises an OpenMM error.
@@ -353,15 +403,6 @@ fastmds simulate -system examples/trpcage/trpcage.pdb --config examples/config.q
   FastMDSimulation uses a compact, icon‑and‑color console style (or `plain` if you set `defaults.log_style: plain` or `FASTMDS_LOG_STYLE=plain`).  
   Project logs (`fastmds.log`) are always plain ISO timestamps.
 
----
-
-## Help & Version
-
-```bash
-fastmds -h
-fastmds simulate -h
-fastmds -v
-```
 
 ---
 
