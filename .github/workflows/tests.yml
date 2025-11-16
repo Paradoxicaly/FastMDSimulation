@@ -30,9 +30,9 @@ jobs:
     - name: Run tests without coverage
       if: ${{ matrix.python-version != '3.11' || matrix.os != 'ubuntu-latest' }}
       shell: bash -l {0}
-      run: pytest -v --junitxml=pytest-results.xml
+      run: pytest -v
     
-    # Run tests WITH coverage only on ubuntu + python 3.11
+    # Run tests WITH coverage only on ubuntu + python 3.11 (EXACT PATTERN)
     - name: Run tests with coverage
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11' }}
       shell: bash -l {0}
@@ -40,40 +40,20 @@ jobs:
         pytest -v \
           --cov=fastmdsimulation \
           --cov-report=xml \
-          --cov-report=term-missing:skip-covered \
-          --cov-fail-under=25 \
-          --junitxml=pytest-results.xml
+          --cov-report=term-missing \
+          --cov-fail-under=25
+        ls -l coverage.xml  # Debug: show file exists
     
-    - name: Upload test results
-      uses: actions/upload-artifact@v4
+    # Upload coverage directly (EXACT PATTERN from working example)
+    - name: Upload coverage to Codecov
+      if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11' }}
+      uses: codecov/codecov-action@v4
       with:
-        name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
-        path: |
-          coverage.xml
-          pytest-results.xml
-        retention-days: 30
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
 
-  # Upload coverage from only ONE job
-  coverage-upload:
-    needs: test
-    runs-on: ubuntu-latest
-    if: always()  # Run even if tests fail
-    
-    steps:
-      - name: Download coverage artifact
-        uses: actions/download-artifact@v4
-        with:
-          path: coverage-reports/
-          pattern: test-results-ubuntu-latest-py3.11
-          merge-multiple: true
-      
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage-reports/**/coverage.xml
-          flags: unittests
-          name: codecov-umbrella
 
   lint:
     runs-on: ubuntu-latest
