@@ -150,8 +150,11 @@ class TestMainOrchestrator:
 class TestOrchestratorIntegration:
     """Integration tests for the orchestrator (requires OpenMM)."""
 
-    def test_minimal_workflow(self, minimal_job_yaml, tmp_path):
+    def test_minimal_workflow(self, minimal_job_yaml, tmp_path, monkeypatch):
         """Test a minimal workflow with zero-step simulation."""
+        # Force Reference platform for CI environment
+        monkeypatch.setenv("OPENMM_DEFAULT_PLATFORM", "Reference")
+
         output_dir = tmp_path / "output"
 
         result = run_from_yaml(str(minimal_job_yaml), str(output_dir))
@@ -168,8 +171,11 @@ class TestOrchestratorIntegration:
         assert "time_start" in meta_data
         assert "time_end" in meta_data
 
-    def test_waterbox_workflow(self, waterbox_job_yaml, tmp_path):
+    def test_waterbox_workflow(self, waterbox_job_yaml, tmp_path, monkeypatch):
         """Test waterbox workflow with zero-step stages."""
+        # Force Reference platform for CI environment
+        monkeypatch.setenv("OPENMM_DEFAULT_PLATFORM", "Reference")
+
         output_dir = tmp_path / "output"
 
         result = run_from_yaml(str(waterbox_job_yaml), str(output_dir))
