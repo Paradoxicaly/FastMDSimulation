@@ -1,6 +1,7 @@
 # FastMDSimulation
 
 [![Tests](https://github.com/aai-research-lab/FastMDSimulation/actions/workflows/tests.yml/badge.svg)](https://github.com/aai-research-lab/FastMDSimulation/actions)
+[![codecov](https://codecov.io/gh/aai-research-lab/FastMDSimulation/branch/main/graph/badge.svg)](https://codecov.io/gh/aai-research-lab/FastMDSimulation)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
