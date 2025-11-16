@@ -1,0 +1,20 @@
+graph TD
+    A[Push/PR] --> B[Parallel Jobs]
+    B --> C[Main Tests]
+    B --> D[Linting]
+    B --> E[Platform Check]
+    B --> F[Dry-run Tests]
+    
+    C --> G[6 Environments<br/>Linux/macOS × Py3.10/3.11/3.12]
+    D --> H[Code Style]
+    E --> I[OpenMM Integration]
+    F --> J[CLI Commands]
+    
+    G --> K[Codecov Report]
+    K --> L[All Pass?]
+    H --> L
+    I --> L
+    J --> L
+    
+    L --> M[✅ Merge Allowed]
+    L --> N[❌ Fix Required]

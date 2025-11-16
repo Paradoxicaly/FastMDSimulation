@@ -1,0 +1,147 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12"]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup micromamba
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-file: environment.yml
+        cache-environment: true
+        init-shell: bash
+    
+    - name: Install package and test dependencies
+      shell: bash -l {0}
+      run: pip install -e .[tests]
+    
+    - name: Run tests with coverage
+      shell: bash -l {0}
+      run: |
+        pytest -v \
+          --cov=fastmdsimulation \
+          --cov-report=xml \
+          --cov-report=term-missing:skip-covered \
+          --cov-fail-under=85 \
+          --junitxml=pytest-results.xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
+        path: |
+          coverage.xml
+          pytest-results.xml
+        retention-days: 30
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup micromamba
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+          init-shell: bash
+      
+      - name: Install linting dependencies
+        shell: bash -l {0}
+        run: pip install flake8 black isort
+      
+      - name: Check code formatting with Black
+        shell: bash -l {0}
+        run: black --check src/ tests/
+      
+      - name: Check import sorting with isort
+        shell: bash -l {0}
+        run: isort --check-only src/ tests/
+      
+      - name: Lint code with flake8
+        shell: bash -l {0}
+        run: flake8 src/ tests/ --max-line-length=88 --extend-ignore=E203,W503
+
+  platform-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup micromamba
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+          init-shell: bash
+      
+      - name: Install package
+        shell: bash -l {0}
+        run: pip install -e .[tests]
+      
+      - name: Test OpenMM platform detection
+        shell: bash -l {0}
+        run: |
+          python -c "
+          import openmm as mm
+          platforms = [mm.Platform.getPlatform(i).getName() for i in range(mm.Platform.getNumPlatforms())]
+          print('Available platforms:', platforms)
+          assert 'Reference' in platforms, 'Reference platform should be available'
+          print('✓ Platform detection test passed')
+          "
+      
+      - name: Test basic imports
+        shell: bash -l {0}
+        run: |
+          python -c "
+          import fastmdsimulation
+          from fastmdsimulation.core.orchestrator import run_from_yaml
+          from fastmdsimulation.core.simulate import simulate_from_pdb
+          print('✓ All core imports successful')
+          "
+
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup micromamba
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+          init-shell: bash
+      
+      - name: Install package
+        shell: bash -l {0}
+        run: pip install -e .[tests]
+      
+      - name: Test dry-run functionality
+        shell: bash -l {0}
+        run: |
+          # Test systemic simulation dry-run
+          fastmds simulate -system examples/waterbox/job.yml --dry-run
+          
+          # Test one-shot simulation dry-run  
+          fastmds simulate -system examples/trpcage/trpcage.pdb --config examples/config.quick.yml --dry-run
+          
+          echo "✓ All dry-run tests passed"
