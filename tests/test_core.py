@@ -130,9 +130,7 @@ class TestPDBFixerIntegration:
 
         # This should work for a valid PDB structure
         try:
-            fix_pdb_with_pdbfixer(
-                str(sample_pdb_file), str(output_pdb), ph=7.0
-            )
+            fix_pdb_with_pdbfixer(str(sample_pdb_file), str(output_pdb), ph=7.0)
             # The function might return None, so just check that output file exists
             assert output_pdb.exists()
             # Basic sanity check on output
