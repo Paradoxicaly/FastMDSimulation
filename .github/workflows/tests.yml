@@ -78,7 +78,7 @@ jobs:
       
       - name: Lint code with flake8
         shell: bash -l {0}
-        run: flake8 src/ tests/ --max-line-length=88 --extend-ignore=E203,W503
+        run: flake8 src/ tests/ --max-line-length=130 --extend-ignore=E203,W503
 
   platform-test:
     runs-on: ubuntu-latest

@@ -1,9 +1,6 @@
 # tests/conftest.py
 
-import json
 import os
-import pathlib as _pl
-import sys
 import textwrap
 
 import pytest
@@ -181,7 +178,7 @@ END
 def pytest_collection_modifyitems(config, items):
     """Skip tests marked 'requires_openmm' if OpenMM is not available."""
     try:
-        import openmm
+        pass
 
         openmm_available = True
     except ImportError:

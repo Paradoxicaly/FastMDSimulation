@@ -1,9 +1,7 @@
 # tests/test_cli.py
 
-import json
-import pathlib as pl
 import sys
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -188,7 +186,7 @@ def test_cli_version_fixed(monkeypatch, capsys):
         # Try to get version from package metadata
         pkg_version = version("fastmdsimulation")
         assert "fastmdsimulation" in pkg_version
-    except:
+    except Exception:
         # Fallback: test the package import
         import fastmdsimulation
 

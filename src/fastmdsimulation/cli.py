@@ -118,7 +118,7 @@ def _resolve_plan_from_pdb(pdb: str, outdir: str, config: str | None):
 def main():
     parser = argparse.ArgumentParser(
         prog="fastmds",
-        description="Automated MD simulation (OpenMM-first). Supports both Systemic Simulations (multiple systems via YAML) and One-Shot Simulations (single PDB with overrides).",
+        description="Automated MD simulation. Supports Many-Shot and One-Shot (single PDB) Simulations.",
     )
     parser.add_argument(
         "-v", "--version", action="store_true", help="Print version and exit"

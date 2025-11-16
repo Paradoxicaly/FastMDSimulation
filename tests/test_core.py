@@ -1,6 +1,5 @@
 # tests/test_core.py
 
-import pathlib as pl
 import re
 import textwrap
 
@@ -36,10 +35,10 @@ class TestOrchestrator:
             textwrap.dedent(
                 f"""
             project: WaterBox
-            defaults: 
+            defaults:
                 engine: openmm
                 temperature_K: 300
-            stages: 
+            stages:
                 - {{name: minimize, steps: 0}}
             systems:
                 - id: water_system
@@ -74,9 +73,9 @@ class TestOrchestrator:
             textwrap.dedent(
                 f"""
             project: TestProtein
-            defaults: 
+            defaults:
                 engine: openmm
-            stages: 
+            stages:
                 - {{name: minimize, steps: 0}}
             systems:
                 - id: protein_system
@@ -131,7 +130,7 @@ class TestPDBFixerIntegration:
 
         # This should work for a valid PDB structure
         try:
-            result = fix_pdb_with_pdbfixer(
+            fix_pdb_with_pdbfixer(
                 str(sample_pdb_file), str(output_pdb), ph=7.0
             )
             # The function might return None, so just check that output file exists

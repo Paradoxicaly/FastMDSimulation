@@ -591,7 +591,6 @@ def build_simulation_from_spec(
 # Stage runner
 # ------------------------------------------------------------
 def run_stage(sim, stage: Dict[str, Any], stage_dir: Path, defaults: Dict[str, Any]):
-    from openmm import unit
     from openmm.app import CheckpointReporter, DCDReporter, PDBFile, StateDataReporter
 
     name = stage.get("name", "stage")
