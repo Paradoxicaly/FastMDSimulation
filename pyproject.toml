@@ -11,12 +11,20 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Adekunle Aina" }]
 dependencies = [
-  "PyYAML>=6.0.1",
-  "rich>=13.7.0"
+    "PyYAML>=6.0.1",
+    "rich>=13.7.0",
+    "fastmdanalysis>=1.0.0"
+    # Note: OpenMM, MDTraj, etc. are installed via conda/mamba
 ]
 
 [project.optional-dependencies]
-analysis = ["fastmdanalysis>=0.1.0"]
+tests = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "isort>=5.12"
+]
 
 [project.scripts]
 fastmds = "fastmdsimulation.cli:main"

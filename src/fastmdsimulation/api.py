@@ -1,4 +1,4 @@
-#FastMDSimulation/src/fastmdsimulation/api.py
+# FastMDSimulation/src/fastmdsimulation/api.py
 
 from __future__ import annotations
 from typing import Optional
@@ -7,6 +7,7 @@ from .core.orchestrator import run_from_yaml
 from .utils.logging import get_logger
 
 logger = get_logger("api")
+
 
 class FastMDSimulation:
     """
@@ -22,9 +23,11 @@ class FastMDSimulation:
     - Analysis hooks into FastMDAnalysis (if installed) and mirrors CLI flags.
     """
 
-    def __init__(self, system: str, output: str = "simulate_output", config: Optional[str] = None):
-        self.system = str(system)        # .pdb or .yml/.yaml
-        self.output = str(output)        # base output directory
+    def __init__(
+        self, system: str, output: str = "simulate_output", config: Optional[str] = None
+    ):
+        self.system = str(system)  # .pdb or .yml/.yaml
+        self.output = str(output)  # base output directory
         self.config = str(config) if config else None
 
     def simulate(
@@ -55,14 +58,19 @@ class FastMDSimulation:
         """
         if self.system.lower().endswith((".yml", ".yaml")):
             if self.config:
-                logger.warning("Ignoring `config`: a job YAML was supplied as `system`.")
+                logger.warning(
+                    "Ignoring `config`: a job YAML was supplied as `system`."
+                )
             project = run_from_yaml(self.system, self.output)
         else:
-            project = simulate_from_pdb(self.system, outdir=self.output, config=self.config)
+            project = simulate_from_pdb(
+                self.system, outdir=self.output, config=self.config
+            )
 
         if analyze:
             try:
                 from .reporting.analysis_bridge import analyze_with_bridge
+
                 analyze_with_bridge(project, slides=slides, frames=frames, atoms=atoms)
             except Exception as e:
                 logger.error(f"Analysis step failed or is unavailable: {e}")

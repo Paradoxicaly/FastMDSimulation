@@ -16,9 +16,7 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "requires_openmm: test requires OpenMM installation"
     )
-    config.addinivalue_line(
-        "markers", "integration: end-to-end integration test"
-    )
+    config.addinivalue_line("markers", "integration: end-to-end integration test")
 
 
 @pytest.fixture(autouse=True)
@@ -48,32 +46,36 @@ def tmp_jobdir(tmp_path):
 @pytest.fixture
 def water2nm_pdb(tmp_jobdir):
     """
-    Create a tiny TIP3P water PDB for smoke tests. 
+    Create a tiny TIP3P water PDB for smoke tests.
     Falls back to a minimal HOH if OpenMM is unavailable.
     """
     pdb = tmp_jobdir / "water2nm.pdb"
     try:
         from openmm.app import Modeller, Topology, ForceField, PDBFile
         from openmm import unit, Vec3
-        
+
         # Create a small water box using OpenMM
         mod = Modeller(Topology(), [])
-        ff = ForceField('tip3p.xml')
-        mod.addSolvent(ff, model='tip3p', boxSize=Vec3(2, 2, 2) * unit.nanometers)
-        
-        with open(pdb, 'w') as f:
+        ff = ForceField("tip3p.xml")
+        mod.addSolvent(ff, model="tip3p", boxSize=Vec3(2, 2, 2) * unit.nanometers)
+
+        with open(pdb, "w") as f:
             PDBFile.writeFile(mod.topology, mod.positions, f)
-            
+
     except Exception:
         # Fallback: Minimal valid-looking PDB with a single water
         # Enough for path/plumbing tests when OpenMM isn't available
-        pdb.write_text(textwrap.dedent('''\
+        pdb.write_text(
+            textwrap.dedent(
+                """\
 CRYST1   20.000   20.000   20.000  90.00  90.00  90.00 P 1           1
 HETATM    1  O   HOH A   1       0.000   0.000   0.000  1.00  0.00           O
 HETATM    2  H1  HOH A   1       0.758   0.000   0.504  1.00  0.00           H
 HETATM    3  H2  HOH A   1      -0.758   0.000   0.504  1.00  0.00           H
 END
-'''))
+"""
+            )
+        )
     return pdb
 
 
@@ -81,7 +83,9 @@ END
 def waterbox_job_yaml(tmp_jobdir, water2nm_pdb):
     """Create a realistic waterbox job YAML for integration testing."""
     yml = tmp_jobdir / "job_water2nm.yml"
-    yml.write_text(textwrap.dedent(f"""
+    yml.write_text(
+        textwrap.dedent(
+            f"""
 project: WaterBox
 defaults:
   engine: openmm
@@ -104,7 +108,9 @@ systems:
     fixed_pdb: {water2nm_pdb.as_posix()}
 sweep:
   temperature_K: [300]
-"""))
+"""
+        )
+    )
     return yml
 
 
@@ -112,7 +118,9 @@ sweep:
 def minimal_job_yaml(tmp_jobdir, water2nm_pdb):
     """Create a minimal job YAML for basic functionality testing."""
     yml = tmp_jobdir / "minimal_job.yml"
-    yml.write_text(textwrap.dedent(f"""
+    yml.write_text(
+        textwrap.dedent(
+            f"""
 project: MinimalTest
 defaults:
   temperature_K: 300
@@ -121,27 +129,30 @@ stages:
 systems:
   - id: test_system
     fixed_pdb: {water2nm_pdb.as_posix()}
-"""))
+"""
+        )
+    )
     return yml
 
 
 @pytest.fixture
 def mock_openmm_platforms(monkeypatch):
     """Mock OpenMM platforms for testing platform detection logic."""
+
     class MockPlatform:
         def __init__(self, name):
             self.name = name
-            
+
         def getName(self):
             return self.name
-    
+
     def mock_get_num_platforms():
         return 3
-        
+
     def mock_get_platform(index):
         platforms = ["Reference", "CPU", "CUDA"]
         return MockPlatform(platforms[index])
-    
+
     # Mock the OpenMM platform methods
     monkeypatch.setattr("openmm.Platform.getNumPlatforms", mock_get_num_platforms)
     monkeypatch.setattr("openmm.Platform.getPlatform", mock_get_platform)
@@ -151,13 +162,17 @@ def mock_openmm_platforms(monkeypatch):
 def sample_pdb_file(tmp_jobdir):
     """Create a sample PDB file for one-shot simulation testing."""
     pdb = tmp_jobdir / "sample.pdb"
-    pdb.write_text(textwrap.dedent('''\
+    pdb.write_text(
+        textwrap.dedent(
+            """\
 ATOM      1  N   ALA A   1       0.000   0.000   0.000  1.00  0.00           N
 ATOM      2  CA  ALA A   1       1.458   0.000   0.000  1.00  0.00           C
 ATOM      3  C   ALA A   1       2.009   1.420   0.000  1.00  0.00           C
 ATOM      4  O   ALA A   1       1.251   2.381   0.000  1.00  0.00           O
 END
-'''))
+"""
+        )
+    )
     return pdb
 
 
@@ -166,12 +181,13 @@ def pytest_collection_modifyitems(config, items):
     """Skip tests marked 'requires_openmm' if OpenMM is not available."""
     try:
         import openmm
+
         openmm_available = True
     except ImportError:
         openmm_available = False
-        
+
     skip_openmm = pytest.mark.skip(reason="OpenMM not available")
-    
+
     for item in items:
         if "requires_openmm" in item.keywords and not openmm_available:
             item.add_marker(skip_openmm)

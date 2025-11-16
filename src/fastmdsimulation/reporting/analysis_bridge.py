@@ -5,6 +5,7 @@ import subprocess, importlib.util, sys
 from typing import Optional
 from ..utils.logging import get_logger
 
+
 def _get_production_stage(run_dir: Path) -> Optional[Path]:
     prod = run_dir / "production"
     traj, top = prod / "traj.dcd", prod / "topology.pdb"
@@ -12,13 +13,17 @@ def _get_production_stage(run_dir: Path) -> Optional[Path]:
         return prod
     return None
 
+
 def iter_runs_with_production(project_dir: Path):
     for run in sorted([p for p in project_dir.iterdir() if p.is_dir()]):
         prod = _get_production_stage(run)
         if prod:
             yield run, prod, prod / "traj.dcd", prod / "topology.pdb"
 
-def build_analyze_cmd(traj: Path, top: Path, *, slides: bool, frames: str | None, atoms: str | None) -> list[str]:
+
+def build_analyze_cmd(
+    traj: Path, top: Path, *, slides: bool, frames: str | None, atoms: str | None
+) -> list[str]:
     cmd = ["fastmda", "analyze", "-traj", str(traj), "-top", str(top)]
     if slides:
         cmd.append("--slides")
@@ -27,6 +32,7 @@ def build_analyze_cmd(traj: Path, top: Path, *, slides: bool, frames: str | None
     if atoms:
         cmd += ["--atoms", str(atoms)]
     return cmd
+
 
 def _run_and_stream(cmd: list[str], logger, prefix: str = "[fastmda] ") -> int:
     """
@@ -54,12 +60,13 @@ def _run_and_stream(cmd: list[str], logger, prefix: str = "[fastmda] ") -> int:
             logger.info(f"{prefix}{line.rstrip()}")
     return proc.wait()
 
+
 def analyze_with_bridge(
     project_dir: str,
     *,
     slides: bool = True,
     frames: str | None = None,
-    atoms: str | None = None
+    atoms: str | None = None,
 ) -> bool:
     logger = get_logger("analysis")
     root = Path(project_dir)
@@ -82,8 +89,16 @@ def analyze_with_bridge(
             continue  # next run
 
         # Fallback: python -m fastmdanalysis
-        pycmd = [sys.executable, "-m", "fastmdanalysis", "analyze",
-                 "-traj", str(traj), "-top", str(top)]
+        pycmd = [
+            sys.executable,
+            "-m",
+            "fastmdanalysis",
+            "analyze",
+            "-traj",
+            str(traj),
+            "-top",
+            str(top),
+        ]
         if slides:
             pycmd.append("--slides")
         if frames:
@@ -99,5 +114,7 @@ def analyze_with_bridge(
             logger.error(f"analysis failed for {run_dir.name}: exit {rc2}")
 
     if not ok:
-        logger.warning("no production stages found or analysis failed; skipping analysis.")
+        logger.warning(
+            "no production stages found or analysis failed; skipping analysis."
+        )
     return ok

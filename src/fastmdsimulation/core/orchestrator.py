@@ -160,7 +160,9 @@ def _expand_runs(cfg: Dict[str, Any], outdir: str) -> Dict[str, Any]:
     defaults = cfg.get("defaults", {})
     project = cfg["project"]
     base = Path(outdir) / project
-    temps = cfg.get("sweep", {}).get("temperature_K", [defaults.get("temperature_K", 300)])
+    temps = cfg.get("sweep", {}).get(
+        "temperature_K", [defaults.get("temperature_K", 300)]
+    )
     runs = []
     for sys_cfg in cfg["systems"]:
         for T in temps:
@@ -192,7 +194,13 @@ def resolve_plan(config_path: str, outdir: str) -> Dict[str, Any]:
         st = []
         for s in r["stages"]:
             steps = int(s.get("steps", 0))
-            st.append({"name": s["name"], "steps": steps, "approx_ps": round(_steps_to_ps(steps, tfs), 3)})
+            st.append(
+                {
+                    "name": s["name"],
+                    "steps": steps,
+                    "approx_ps": round(_steps_to_ps(steps, tfs), 3),
+                }
+            )
         r2 = dict(r)
         r2["stages"] = st
         enriched.append(r2)
@@ -301,8 +309,14 @@ def run_from_yaml(config_path: str, outdir: str) -> str:
     # Attach file logger and print banner + command (like FastMDAnalysis style)
     attach_file_logger(str(base / "fastmds.log"))
     versions = _collect_versions()
-    logger.info(f"FastMDSimulation {versions['fastmdsimulation']} | Python {versions['python']} | OS {versions['os']}")
-    if versions["openmm"] != "n/a" or versions["pdbfixer"] != "n/a" or versions["openmmforcefields"] != "n/a":
+    logger.info(
+        f"FastMDSimulation {versions['fastmdsimulation']} | Python {versions['python']} | OS {versions['os']}"
+    )
+    if (
+        versions["openmm"] != "n/a"
+        or versions["pdbfixer"] != "n/a"
+        or versions["openmmforcefields"] != "n/a"
+    ):
         logger.info(
             f"openmm {versions['openmm']} | pdbfixer {versions['pdbfixer']} | openmmforcefields {versions['openmmforcefields']}"
         )

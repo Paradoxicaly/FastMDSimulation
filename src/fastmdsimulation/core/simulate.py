@@ -9,6 +9,7 @@ from .pdbfix import fix_pdb_with_pdbfixer  # <-- moved here
 
 logger = get_logger("simulate")
 
+
 def _deep_update(dst: Dict[str, Any], src: Dict[str, Any]) -> Dict[str, Any]:
     for k, v in (src or {}).items():
         if isinstance(v, dict) and isinstance(dst.get(k), dict):
@@ -17,8 +18,10 @@ def _deep_update(dst: Dict[str, Any], src: Dict[str, Any]) -> Dict[str, Any]:
             dst[k] = v
     return dst
 
+
 def _auto_project_name(pdb_path: Path) -> str:
     return f"{pdb_path.stem}-auto"
+
 
 def build_auto_config(fixed_pdb: Path, project: Optional[str] = None) -> Dict[str, Any]:
     """
@@ -49,12 +52,19 @@ def build_auto_config(fixed_pdb: Path, project: Optional[str] = None) -> Dict[st
             {"name": "production", "steps": 1000000, "ensemble": "NPT"},
         ],
         "systems": [
-            {"id": "auto", "pdb": str(fixed_pdb), "forcefield": ["charmm36.xml", "charmm36/water.xml"]}
+            {
+                "id": "auto",
+                "pdb": str(fixed_pdb),
+                "forcefield": ["charmm36.xml", "charmm36/water.xml"],
+            }
         ],
         "sweep": {"temperature_K": [300]},
     }
 
-def simulate_from_pdb(system_pdb: str, outdir: str = "simulate_output", config: Optional[str] = None) -> str:
+
+def simulate_from_pdb(
+    system_pdb: str, outdir: str = "simulate_output", config: Optional[str] = None
+) -> str:
     # Local import to avoid circular import at module import-time
     from .orchestrator import run_from_yaml
 

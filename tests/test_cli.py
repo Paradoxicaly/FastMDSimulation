@@ -7,10 +7,12 @@ import pytest
 from unittest.mock import patch, MagicMock
 
 # We need to patch BEFORE importing the CLI module
-with patch("fastmdsimulation.core.orchestrator.run_from_yaml") as mock_run_yaml, \
-     patch("fastmdsimulation.core.simulate.simulate_from_pdb") as mock_simulate_pdb, \
-     patch("fastmdsimulation.core.orchestrator.resolve_plan") as mock_resolve_plan:
-    
+with (
+    patch("fastmdsimulation.core.orchestrator.run_from_yaml") as mock_run_yaml,
+    patch("fastmdsimulation.core.simulate.simulate_from_pdb") as mock_simulate_pdb,
+    patch("fastmdsimulation.core.orchestrator.resolve_plan") as mock_resolve_plan,
+):
+
     # Now import the CLI module with all the mocks in place
     from fastmdsimulation import cli as _cli
 
@@ -40,7 +42,14 @@ def test_cli_simulate_with_output_dir(monkeypatch, tmp_path, waterbox_job_yaml):
     mock_run_yaml.return_value = str(tmp_path / "custom_output" / "WaterBox")
 
     custom_dir = tmp_path / "my_custom_output"
-    argv = ["fastmds", "simulate", "-system", str(waterbox_job_yaml), "-o", str(custom_dir)]
+    argv = [
+        "fastmds",
+        "simulate",
+        "-system",
+        str(waterbox_job_yaml),
+        "-o",
+        str(custom_dir),
+    ]
     monkeypatch.setattr(sys, "argv", argv)
 
     _cli.main()
@@ -66,20 +75,26 @@ def test_cli_simulate_pdb_one_shot(monkeypatch, tmp_path, sample_pdb_file):
     mock_simulate_pdb.assert_called_once()
     call_args = mock_simulate_pdb.call_args[0]  # positional arguments
     call_kwargs = mock_simulate_pdb.call_args[1]  # keyword arguments
-    
+
     assert call_args[0].endswith("sample.pdb")  # system_pdb
     assert call_kwargs.get("outdir") == "simulate_output"  # default outdir
     assert call_kwargs.get("config") is None  # no config provided
 
 
-def test_cli_simulate_pdb_with_config(monkeypatch, tmp_path, sample_pdb_file, minimal_job_yaml):
+def test_cli_simulate_pdb_with_config(
+    monkeypatch, tmp_path, sample_pdb_file, minimal_job_yaml
+):
     """Test one-shot simulation from PDB with config overrides."""
     mock_simulate_pdb.reset_mock()
     mock_simulate_pdb.return_value = str(tmp_path / "configured_output" / "AutoProject")
 
     argv = [
-        "fastmds", "simulate", "-system", str(sample_pdb_file),
-        "--config", str(minimal_job_yaml)
+        "fastmds",
+        "simulate",
+        "-system",
+        str(sample_pdb_file),
+        "--config",
+        str(minimal_job_yaml),
     ]
     monkeypatch.setattr(sys, "argv", argv)
 
@@ -89,7 +104,7 @@ def test_cli_simulate_pdb_with_config(monkeypatch, tmp_path, sample_pdb_file, mi
     mock_simulate_pdb.assert_called_once()
     call_args = mock_simulate_pdb.call_args[0]  # positional arguments
     call_kwargs = mock_simulate_pdb.call_args[1]  # keyword arguments
-    
+
     assert call_args[0].endswith("sample.pdb")  # system_pdb
     assert call_kwargs.get("outdir") == "simulate_output"  # default outdir
     assert call_kwargs.get("config") == str(minimal_job_yaml)  # config provided
@@ -101,8 +116,17 @@ def test_cli_simulate_with_analysis_flags(monkeypatch, tmp_path, waterbox_job_ya
     mock_run_yaml.return_value = str(tmp_path / "analysis_test" / "WaterBox")
 
     argv = [
-        "fastmds", "simulate", "-system", str(waterbox_job_yaml),
-        "--analyze", "--atoms", "protein", "--frames", "100", "--slides", "False"
+        "fastmds",
+        "simulate",
+        "-system",
+        str(waterbox_job_yaml),
+        "--analyze",
+        "--atoms",
+        "protein",
+        "--frames",
+        "100",
+        "--slides",
+        "False",
     ]
     monkeypatch.setattr(sys, "argv", argv)
 
@@ -121,12 +145,14 @@ def test_cli_simulate_dry_run(monkeypatch, tmp_path, waterbox_job_yaml):
     mock_resolve_plan.return_value = {
         "project": "WaterBox",
         "output_dir": str(tmp_path / "dry_run_output"),
-        "runs": [{
-            "system_id": "water2nm",
-            "temperature_K": 300,
-            "run_dir": str(tmp_path / "dry_run_output" / "WaterBox_T300"),
-            "stages": [{"name": "minimize", "steps": 0, "approx_ps": 0.0}]
-        }]
+        "runs": [
+            {
+                "system_id": "water2nm",
+                "temperature_K": 300,
+                "run_dir": str(tmp_path / "dry_run_output" / "WaterBox_T300"),
+                "stages": [{"name": "minimize", "steps": 0, "approx_ps": 0.0}],
+            }
+        ],
     }
 
     argv = ["fastmds", "simulate", "-system", str(waterbox_job_yaml), "--dry-run"]
@@ -145,17 +171,17 @@ def test_cli_version_fixed(monkeypatch, capsys):
     """Test version command output."""
     # Test the version output directly without patching
     from importlib.metadata import version
-    
+
     monkeypatch.setattr(sys, "argv", ["fastmds", "--version"])
-    
+
     # This will fail because --version requires a subcommand in current setup
     # Let's test the actual behavior
     with pytest.raises(SystemExit) as exc:
         _cli.main()
-    
+
     # It should exit with error code 2 (missing required argument)
     assert exc.value.code == 2
-    
+
     # But we can test that the version function exists and works
     try:
         # Try to get version from package metadata
@@ -164,6 +190,7 @@ def test_cli_version_fixed(monkeypatch, capsys):
     except:
         # Fallback: test the package import
         import fastmdsimulation
+
         assert hasattr(fastmdsimulation, "__version__")
 
 
@@ -176,8 +203,12 @@ def test_cli_config_ignored_for_yaml(monkeypatch, tmp_path, waterbox_job_yaml, c
     config_file.write_text("dummy: config")
 
     argv = [
-        "fastmds", "simulate", "-system", str(waterbox_job_yaml),
-        "--config", str(config_file)
+        "fastmds",
+        "simulate",
+        "-system",
+        str(waterbox_job_yaml),
+        "--config",
+        str(config_file),
     ]
     monkeypatch.setattr(sys, "argv", argv)
 
@@ -185,7 +216,7 @@ def test_cli_config_ignored_for_yaml(monkeypatch, tmp_path, waterbox_job_yaml, c
 
     captured = capsys.readouterr()
     assert "Warning: --config is ignored" in captured.out
-    
+
     # run_from_yaml(config_path: str, outdir: str) -> str
     mock_run_yaml.assert_called_once()
     call_args = mock_run_yaml.call_args[0]

@@ -6,6 +6,7 @@ from ..utils.logging import get_logger
 
 logger = get_logger("pdbfix")
 
+
 def fix_pdb_with_pdbfixer(input_pdb: str, output_pdb: str, *, ph: float = 7.0) -> None:
     """
     Strict PDBFixer wrapper: raises on failure.

@@ -15,11 +15,13 @@ _COLOR = {
 }
 _ICON = {"DEBUG": "·", "INFO": "✓", "WARNING": "⚠", "ERROR": "✗", "CRITICAL": "‼"}
 
+
 # ---------------------------
 # Formatters
 # ---------------------------
 class _PrettyFormatter(logging.Formatter):
     """Compact, human-friendly formatter. Color only when stderr is a TTY."""
+
     def __init__(self, use_color: bool):
         super().__init__()
         self.use_color = use_color
@@ -34,11 +36,13 @@ class _PrettyFormatter(logging.Formatter):
             return f"{ts} {c}{icon} {lvl:<8}{r} {msg}"
         return f"{ts} {icon} {lvl:<8} {msg}"
 
+
 class _PlainISOFormatter(logging.Formatter):
     """
     ISO-ish formatter (aligns with FastMDAnalysis vibe).
     Includes date and milliseconds: YYYY-MM-DD HH:MM:SS,mmm - LEVEL - message
     """
+
     def __init__(self):
         fmt = "%(asctime)s - %(levelname)s - %(message)s"
         # add milliseconds like FastMDAnalysis default
@@ -58,11 +62,13 @@ class _PlainISOFormatter(logging.Formatter):
             s = " - ".join([left, rest])
         return s
 
+
 # ---------------------------
 # Logger state
 # ---------------------------
 _console_handler: logging.Handler | None = None
 _file_handler: logging.Handler | None = None
+
 
 def _to_level(val) -> int:
     if isinstance(val, int):
@@ -74,12 +80,14 @@ def _to_level(val) -> int:
             pass
     return logging.INFO
 
+
 def _resolve_style(default: str | None = None) -> str:
     """Return 'pretty' or 'plain' using env FASTMDS_LOG_STYLE or provided default."""
     env = os.getenv("FASTMDS_LOG_STYLE", "").strip().lower()
     if env in ("pretty", "plain"):
         return env
     return default or "pretty"
+
 
 # ---------------------------
 # Public API
@@ -117,7 +125,10 @@ def setup_console(level=logging.INFO, style: str | None = None) -> logging.Logge
         _console_handler.setLevel(base.level)
     return base
 
-def attach_file_logger(path: str, level=logging.INFO, style: str | None = "plain") -> logging.Logger:
+
+def attach_file_logger(
+    path: str, level=logging.INFO, style: str | None = "plain"
+) -> logging.Logger:
     """
     Attach/replace a per-project file logger.
     - style defaults to 'plain' (ISO-like) for audit-friendly logs.
@@ -150,10 +161,12 @@ def attach_file_logger(path: str, level=logging.INFO, style: str | None = "plain
     _file_handler = handler
     return base
 
+
 def get_logger(name: str | None = None) -> logging.Logger:
     """Get the package logger or a namespaced child (e.g., 'engine.openmm')."""
     base = logging.getLogger("fastmds")
     return base if name is None else base.getChild(name)
+
 
 def set_level(level: int | str) -> None:
     """Programmatically change the log level for all handlers."""

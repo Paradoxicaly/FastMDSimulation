@@ -11,5 +11,4 @@ dependencies:
   - pyyaml>=6
   - rich>=13
   - pip
-  - pip:
-      - fastmdanalysis>=1.0.0
+  
