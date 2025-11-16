@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: tests (py${{ matrix.python-version }} • ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -25,18 +26,25 @@ jobs:
       shell: bash -l {0}
       run: pip install -e ".[tests]"
     
+    # Run tests without coverage for most jobs
+    - name: Run tests without coverage
+      if: ${{ matrix.python-version != '3.11' || matrix.os != 'ubuntu-latest' }}
+      shell: bash -l {0}
+      run: pytest -v --junitxml=pytest-results.xml
+    
+    # Run tests WITH coverage only on ubuntu + python 3.11
     - name: Run tests with coverage
+      if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11' }}
       shell: bash -l {0}
       run: |
         pytest -v \
-          --cov=src \
-          --cov-config=.coveragerc \
+          --cov=fastmdsimulation \
           --cov-report=xml \
           --cov-report=term-missing:skip-covered \
           --cov-fail-under=25 \
           --junitxml=pytest-results.xml
     
-    - name: Upload test results and coverage
+    - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
         name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
@@ -45,15 +53,18 @@ jobs:
           pytest-results.xml
         retention-days: 30
 
+  # Upload coverage from only ONE job
   coverage-upload:
-    needs: test  # Wait for all test jobs to complete
+    needs: test
     runs-on: ubuntu-latest
+    if: always()  # Run even if tests fail
+    
     steps:
-      - name: Download all coverage artifacts
+      - name: Download coverage artifact
         uses: actions/download-artifact@v4
         with:
           path: coverage-reports/
-          pattern: test-results-*
+          pattern: test-results-ubuntu-latest-py3.11
           merge-multiple: true
       
       - name: Upload coverage to Codecov
