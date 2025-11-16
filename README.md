@@ -10,7 +10,7 @@ Automated Molecular Dynamics Simulation — with a single command.
 
 - **Pipeline:** prepare → solvate + ions → minimize → NVT → NPT → production  
 - **Reproducible:** Supports both **Systemic** (multiple systems) and **One-Shot** (PDB) Simulations. 
-- **Analysis:** Optional post‑MD analysis via `FastMDAnalysis` (supports auto-generated slide deck)  
+- **Analysis:** Post‑MD analysis via `FastMDAnalysis` (supports auto-generated slide deck)  
 - **HPC‑ready:** Works on CPU, NVIDIA GPUs (CUDA), and clusters with module‑provided CUDA   
 - **Dual Interface:** A simple command-line interface (CLI) and Python API. 
 
@@ -496,16 +496,16 @@ Aina, A. (2025) "FastMDSimulation: Software for Automated Molecular Dynamics Sim
 ``FastMDSimulation`` builds upon excellent open-source libraries to provide its automated molecular dynamics capabilities and to improve workflow efficiency, usability, and reproducibility in MD simulations. We gratefully acknowledge:
 
 - `OpenMM` for the high-performance molecular dynamics engine
-- `OpenMM ForceFields` for providing CHARMM36 and other force fields
+- `Openmmforcefields` for providing CHARMM36 and other force fields
 - `PDBFixer` for structure preparation and repair
 - `FastMDAnalysis` for automated analysis of MD trajectories
 - `NumPy/SciPy` for efficient numerical computations
 
 ``FastMDSimulation`` also leverages the broader scientific Python ecosystem for visualization, configuration management, and user experience:
 
-- **PyYAML** for flexible configuration management
-- **Rich** for enhanced console output and logging
-- **Matplotlib** (via [FastMDAnalysis](https://github.com/aai-research-lab/FastMDAnalysis)) for publication-quality figures
+- `PyYAML` for flexible configuration management
+- `Rich` for enhanced console output and logging
+- `Matplotlib` (via [FastMDAnalysis](https://github.com/aai-research-lab/FastMDAnalysis)) for publication-quality figures
 
 While building upon these robust tools, ``FastMDSimulation`` simplifies MD setup and execution for students, professionals, and researchers, especially those new to molecular dynamics. We thank the scientific Python community for their contributions to the ecosystem that make projects like this possible.
 
