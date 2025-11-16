@@ -1,12 +1,17 @@
 # FastMDSimulation
 
+[![Tests](https://github.com/aai-research-lab/FastMDSimulation/actions/workflows/tests.yml/badge.svg)](https://github.com/aai-research-lab/FastMDSimulation/actions)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
 Automated Molecular Dynamics Simulation — with a single command. 
 
 - **Pipeline:** prepare → solvate + ions → minimize → NVT → NPT → production  
 - **Reproducible:** Supports both **Systemic** (multiple systems) and **One-Shot** (PDB) Simulations. 
 - **Analysis:** Optional post‑MD analysis via `FastMDAnalysis` (supports auto-generated slide deck)  
-- **HPC‑ready:** Works on CPU, NVIDIA GPUs (CUDA), and clusters with module‑provided CUDA  
-- **MD Engine:** Modern `openmm 8` that defaults to `CHARMM36` forcefile + `TIP3P` water model  
+- **HPC‑ready:** Works on CPU, NVIDIA GPUs (CUDA), and clusters with module‑provided CUDA   
 - **Dual Interface:** A simple command-line interface (CLI) and Python API. 
 
 ---
