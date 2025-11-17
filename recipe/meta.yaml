@@ -6,45 +6,58 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: <checksum>
+  git_url: https://github.com/aai-research-lab/FastMDSimulation.git
+  git_rev: v{{ version }}
 
 build:
   noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps
 
 requirements:
   host:
     - pip
     - python >=3.10
     - setuptools
+    - wheel
   run:
     - python >=3.10
     - openmm >=8.0
-    - openmmforcefields >=0.11
-    - pdbfixer >=1.8
+    - openmmforcefields >=0.11.2
+    - pdbfixer >=1.9
     - mdtraj >=1.9.9
-    - pyyaml >=6.0
-    - rich >=13.0
+    - pyyaml >=6.0.1
+    - rich >=13.7.0
+    - numpy
     - fastmdanalysis >=1.0.0
 
 test:
   imports:
     - fastmdsimulation
+    - fastmdsimulation.engines
+    - fastmdsimulation.core
+    - fastmdsimulation.utils
   commands:
-    - pip check
     - fastmds --help
+    - python -c "import fastmdsimulation; print('Base import successful')"
+    - python -c "from fastmdsimulation.engines.openmm_engine import _select_platform; print('OpenMM engine utilities imported')"
+    - python -c "from fastmdsimulation.engines.openmm_engine import _parse_ions, _make_integrator; print('Configuration functions work')"
+  requires:
+    - pip
 
 about:
   home: https://github.com/aai-research-lab/FastMDSimulation
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'Automated Molecular Dynamics Simulation'
+  summary: 'Automated Molecular Dynamics Simulation Setup and Analysis'
+  description: |
+    FastMDSimulation automates molecular dynamics simulation setup, running, and analysis.
+    It supports multiple file formats (PDB, AMBER, GROMACS, CHARMM) and provides
+    a streamlined workflow for high-throughput MD simulations.
   doc_url: https://github.com/aai-research-lab/FastMDSimulation
   dev_url: https://github.com/aai-research-lab/FastMDSimulation
 
 extra:
   recipe-maintainers:
-    - ainaadekunle   
+    - ainaadekunle
