@@ -9,9 +9,9 @@
 
 ### Automated Molecular Dynamics Simulation — with a single command 
 
-- Prepare system → solvate + ions → minimize → NVT → NPT → production MD 
+- PDB → prepare → solvate + ions → minimize → NVT → NPT → production MD 
 - Supports both **Systemic** (multiple systems) and **One-Shot** (PDB) Simulations 
-- Automated post‑MD analysis via `FastMDAnalysis` (supports auto-generated slide deck)  
+- Automated post‑MD analysis via `FastMDAnalysis` (with auto-generated slide deck)  
 - Works on CPU, NVIDIA GPUs, and HPC clusters with module‑provided CUDA   
 - Dual interface with a simple command-line interface (CLI) and Python API. 
 
