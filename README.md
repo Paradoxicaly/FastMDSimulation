@@ -134,8 +134,10 @@ mamba --version || true
 conda --version
 ```
 
-### Option B) [Alternatively] 
+### Option B) [Alternatively]  
+
 **Grab the installer for your OS from the [Miniforge releases page](https://conda-forge.org/miniforge/) and run it.**
+  
 ---
 
 ## Quick Start
