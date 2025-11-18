@@ -140,32 +140,36 @@ conda --version
 ## Quick Start
 
 ### Multi-Shot (Systemic) Simulation
-For simulating one or multiple systems with a single command. 
+For simulating one or multiple systems. 
 > All systems and simulation parameters are specified in a `.yml` file.
 ```bash
 fastmds simulate -system waterbox2nm.yml
 ```
 
 ### One‑Shot Simulation
-For simulations from a single raw PDB with optional `.yml` parameter overrides.
+For simulations from a single raw PDB.
+```bash
+fastmds simulate -system trpcage.pdb
+```
+[Optionally] provide `.yml` simulation parameter overrides.
 ```bash
 fastmds simulate -system trpcage.pdb --config config_trpcage.yml
 ```
 
-> You can always add an explicit output directory with `-o <dir>` and analysis flags like `--analyze`, `--atoms`, `--frames`, `--slides` as needed.
+> You can always add an explicit output directory with `-o <dir>` and analysis flags like `--analyze`, `--atoms`, `--frames`, `--slides`.
 
 **Analysis flags** (only when `--analyze` is present):
 - `--slides` (default **True**; set `--slides False` to disable slides)
 - `--frames` (e.g., `"0,-1,10"` subsample every 10 frames; FastMDAnalysis format)
 - `--atoms` (e.g., `protein`, `"protein and name CA"`)
 
-Analysis output is streamed line‑by‑line and prefixed with `[fastmda]` in your log.
+Analysis output is streamed line‑by‑line and prefixed with `[fastmda]` in the log.
 
 ---
 
 ## Accepted Inputs 
 
-Supply **raw PDB structures** or **parameterized systems** in a `.yml` file. The orchestrator normalizes each entry and the engine dispatches to the right OpenMM loader.
+Supply **raw PDB structures** or **parameterized systems** in a `.yml` file. 
 
 ### PDB route (auto‑prepared by FastMDSimulation)
 ```yaml
@@ -228,23 +232,11 @@ systems:
 project: TrpCage
 
 defaults:
-  engine: openmm
-  platform: auto              # auto → CUDA → OpenCL → CPU
   temperature_K: 300
   timestep_fs: 2.0
-  constraints: HBonds
-  minimize_tolerance_kjmol_per_nm: 10.0
-  minimize_max_iterations: 0
   report_interval: 100
   checkpoint_interval: 500
-  forcefield: ["charmm36.xml", "charmm36/water.xml"]
-  box_padding_nm: 1.0
-  ionic_strength_molar: 0.15
-  neutralize: true
-  ions: NaCl                  # "NaCl" | "KCl" | {positiveIon: "K+", negativeIon: "Cl-"}
-  ph: 7.0
-  # integrator defaults to 'langevin'; see full reference below
-
+  
 stages:
   - { name: minimize,   steps: 0 }
   - { name: nvt,        steps: 5000,  ensemble: NVT }
@@ -259,7 +251,7 @@ systems:
 
 ### Comprehensive `.yml` Reference
 
-Everything shown below is **optional** unless noted. Omitted fields fall back to sensible defaults.
+Everything shown below is **optional**. Omitted fields fall back to sensible defaults.
 
 ```yaml
 project: TrpCage
@@ -340,7 +332,7 @@ sweep:
 ---
 
 ## Python API
-### Systemic Simulation
+### Multi-Shot (Systemic) Simulation
 Simulate a 2nm water box:
 ```python
 from fastmdsimulation import FastMDSimulation
@@ -356,7 +348,6 @@ from fastmdsimulation import FastMDSimulation
 
 fastmds = FastMDSimulation(
     system="trpcage.pdb",
-    output="simulate_output",             # optional
     config="config_trpcage.yml"    # optional overrides when using a PDB
 )
 fastmds.simulate(
