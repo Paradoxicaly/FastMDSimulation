@@ -18,8 +18,7 @@
 ---
 
 ## Installation
-We recommend installing `FastMDSimulation` using `mamba`. 
-> If you don't have `mamba`, see **Mamba Installation** section below.
+
 ```bash
 git clone https://github.com/aai-research-lab/FastMDSimulation.git
 ```
@@ -28,6 +27,8 @@ cd FastMDSimulation
 ```
 
 #### Create environment and install
+We recommend installing `FastMDSimulation` using `mamba`. 
+> If you don't have `mamba`, see **Mamba Installation** section below.
 ```bash
 mamba env create -f environment.yml || conda env create -f environment.yml
 ```
