@@ -483,16 +483,17 @@ python -m pytest tests/ -v
 ## Citation
 If you use `FastMDSimulation` in your work, please cite:
 
-Aina, A. (2025) "FastMDSimulation: Software for Automated Molecular Dynamics Simulation". GitHub. https://github.com/aai-research-lab/FastMDSimulation
+Aina, A. (2025) "FastMDSimulation: Software for Automated Molecular Dynamics Simulation". Zenodo. https://doi.org/10.5281/zenodo.17664277
 
 ```bibtex
 @software{fastmdsimulation,
-  author       = {Adekunle Aina},
-  title        = {{FastMDSimulation: Software for Automated Molecular Dynamics Simulation}},
+ author       = {Adekunle Aina},
+  title        = {FastMDSimulation: Software for Automated Molecular Dynamics Analysis},
   year         = {2025},
-  publisher    = {GitHub},
-  url          = {https://github.com/aai-research-lab/FastMDSimulation},
-  note         = {Version 0.1.0}
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17664277},
+  url          = {https://doi.org/10.5281/zenodo.17664277},
+  version      = {v0.1.0} 
 }
 ```
 
