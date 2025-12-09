@@ -27,6 +27,18 @@ from .pdbfix import fix_pdb_with_pdbfixer  # strict fixer (no circular import)
 logger = get_logger("orchestrator")
 
 
+def _deep_update(dst: Dict[str, Any], src: Dict[str, Any] | None) -> Dict[str, Any]:
+    """Recursively merge src into dst (in-place) for lightweight overrides."""
+    if not src:
+        return dst
+    for k, v in src.items():
+        if isinstance(v, dict) and isinstance(dst.get(k), dict):
+            _deep_update(dst[k], v)
+        else:
+            dst[k] = v
+    return dst
+
+
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -307,9 +319,13 @@ def _populate_inputs(cfg: Dict[str, Any], cfg_path: Path, base: Path) -> None:
 # ------------------------------
 # Run
 # ------------------------------
-def run_from_yaml(config_path: str, outdir: str) -> str:
+def run_from_yaml(
+    config_path: str, outdir: str, overrides: Dict[str, Any] | None = None
+) -> str:
     cfg_path = Path(config_path)
     cfg = yaml.safe_load(open(cfg_path))
+    if overrides:
+        cfg = _deep_update(cfg, overrides)
     project = cfg["project"]
     defaults = cfg.get("defaults", {})
     base = Path(outdir) / project

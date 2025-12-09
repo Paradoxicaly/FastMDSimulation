@@ -366,6 +366,25 @@ fastmds.simulate(
 - If `system` ends with `.yml/.yaml`, Systemic Simulation executed; `config` is ignored.
 - If `system` is a `.pdb`, PDBFixer runs (strict), then a temporary `job.auto.yml` is generated and executed.
 
+### PLUMED (optional biasing/analysis)
+- Install `openmm-plumed` (Linux/WSL recommended): `mamba install -c conda-forge openmm-plumed`.
+- Enable globally via CLI flags (applies to all stages):
+  ```bash
+  fastmds simulate -system job.yml --plumed --plumed-script plumed.dat --plumed-log-frequency 100
+  ```
+- Or in YAML, either defaults or per-stage:
+  ```yaml
+  defaults:
+    plumed:
+      enabled: true
+      script: plumed.dat
+      log_frequency: 100
+  stages:
+    - { name: minimize, steps: 0 }
+    - { name: nvt, steps: 5000, plumed: { enabled: true, script: stage_nvt.dat } }
+  ```
+- Outputs (COLVAR, HILLS, etc.) are rewritten to each stage directory automatically.
+
 ---
 
 ## Dry‑run (plan only)

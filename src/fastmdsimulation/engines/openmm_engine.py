@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from ..utils.logging import get_logger
+from .plumed_support import merge_plumed_configs, setup_plumed_force
 
 logger = get_logger("engine.openmm")
 
@@ -631,11 +632,19 @@ def run_stage(sim, stage: Dict[str, Any], stage_dir: Path, defaults: Dict[str, A
         CheckpointReporter(str(stage_dir / "state.chk"), checkpoint_interval)
     )
 
+    # Setup PLUMED if configured
+    plumed_config = merge_plumed_configs(defaults, stage)
+    plumed_force = setup_plumed_force(sim, plumed_config, stage_dir)
+
     # reset/add barostat as needed
     for idx in reversed(range(sim.system.getNumForces())):
         if sim.system.getForce(idx).__class__.__name__ == "MonteCarloBarostat":
             sim.system.removeForce(idx)
     _maybe_barostat(sim.system, ensemble, temperature_K, pressure_atm)
+
+    # Re-initialize context if PLUMED was added
+    if plumed_force is not None:
+        sim.context.reinitialize(preserveState=True)
 
     if name.lower() == "minimize":
         tol_q, tol_val = _get_minimize_tolerance(defaults)

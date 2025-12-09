@@ -1,0 +1,2497 @@
+Retrieving notices: - \ | / done
+Channels:
+ - conda-forge
+Platform: win-64
+Collecting package metadata (repodata.json): \ | / - done
+Solving environment: | / done
+
+## Package Plan ##
+
+  environment location: C:\Users\derri\miniforge3\envs\fastmds
+
+  added / updated specs:
+    - mdtraj
+    - openmm=8
+    - pdbfixer
+    - pip
+    - python=3.10
+    - pyyaml
+    - rich
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    blosc-1.21.6               |       hfd34d9b_1          49 KB  conda-forge
+    c-blosc2-2.15.2            |       h9e57077_1         210 KB  conda-forge
+    cuda-nvrtc-12.9.86         |       hac47afa_1        55.8 MB  conda-forge
+    cuda-version-12.9          |       h4f385c5_3          21 KB  conda-forge
+    hdf5-1.14.4                |nompi_hd5d9e70_105         2.0 MB  conda-forge
+    khronos-opencl-icd-loader-2024.10.24|       h2466b09_1          46 KB  conda-forge
+    libaec-1.1.4               |       h20038f6_0          33 KB  conda-forge
+    libblas-3.11.0             |   4_hf2e6a31_mkl          66 KB  conda-forge
+    libcblas-3.11.0            |   4_h2a3cdd5_mkl          66 KB  conda-forge
+    libcufft-11.4.1.4          |       hac47afa_1       154.7 MB  conda-forge
+    libhwloc-2.12.1            |default_h4379cf1_1003         2.3 MB  conda-forge
+    liblapack-3.11.0           |   4_hf9ab0e9_mkl          79 KB  conda-forge
+    libwinpthread-12.0.0.r4.gg4f2fc60ca|      h57928b3_10          36 KB  conda-forge
+    llvm-openmp-21.1.7         |       h4fa8253_0         340 KB  conda-forge
+    markdown-it-py-4.0.0       |     pyhd8ed1ab_0          63 KB  conda-forge
+    mdtraj-1.10.3              |  py310h1447844_0         1.2 MB  conda-forge
+    mdurl-0.1.2                |     pyhd8ed1ab_1          14 KB  conda-forge
+    mkl-2025.3.0               |     hac47afa_454        95.3 MB  conda-forge
+    numexpr-2.14.1             |mkl_py310hc3dba39_1         178 KB  conda-forge
+    numpy-2.2.6                |  py310h4987827_0         6.3 MB  conda-forge
+    opencl-headers-2025.06.13  |       he0c23c2_0          54 KB  conda-forge
+    openmm-8.4.0               |  py310ha57a109_2        11.3 MB  conda-forge
+    pandas-2.3.3               |  py310hed136d8_2        11.0 MB  conda-forge
+    pdbfixer-1.12              |     pyhd8ed1ab_0         545 KB  conda-forge
+    py-cpuinfo-9.0.0           |     pyhd8ed1ab_1          25 KB  conda-forge
+    pygments-2.19.2            |     pyhd8ed1ab_0         868 KB  conda-forge
+    pyparsing-3.2.5            |     pyhcf101f3_0         102 KB  conda-forge
+    pytables-3.10.1            |  py310h36d347b_4         1.2 MB  conda-forge
+    python-3.10.19             |hc20f281_2_cpython        15.4 MB  conda-forge
+    python-dateutil-2.9.0.post0|     pyhe01879c_2         228 KB  conda-forge
+    python-tzdata-2025.2       |     pyhd8ed1ab_0         141 KB  conda-forge
+    python_abi-3.10            |          8_cp310           7 KB  conda-forge
+    pytz-2025.2                |     pyhd8ed1ab_0         185 KB  conda-forge
+    pyyaml-6.0.3               |  py310hdb0e946_0         154 KB  conda-forge
+    rich-14.2.0                |     pyhcf101f3_0         196 KB  conda-forge
+    scipy-1.15.2               |  py310h15c175c_0        13.7 MB  conda-forge
+    six-1.17.0                 |     pyhe01879c_1          18 KB  conda-forge
+    snappy-1.2.2               |       h7fa0ca8_1          66 KB  conda-forge
+    tbb-2022.3.0               |       hd094cb3_1         152 KB  conda-forge
+    typing-extensions-4.15.0   |       h396c80c_0          89 KB  conda-forge
+    typing_extensions-4.15.0   |     pyhcf101f3_0          50 KB  conda-forge
+    vc-14.3                    |      h2b53caa_33          19 KB  conda-forge
+    vc14_runtime-14.44.35208   |      h818238b_33         668 KB  conda-forge
+    vcomp14-14.44.35208        |      h818238b_33         112 KB  conda-forge
+    yaml-0.2.5                 |       h6a83c73_3          62 KB  conda-forge
+    zlib-1.3.1                 |       h2466b09_2         105 KB  conda-forge
+    zlib-ng-2.2.5              |       h32d8bfd_1         109 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:       375.1 MB
+
+The following NEW packages will be INSTALLED:
+
+  blosc              conda-forge/win-64::blosc-1.21.6-hfd34d9b_1 
+  bzip2              conda-forge/win-64::bzip2-1.0.8-h0ad9c76_8 
+  c-blosc2           conda-forge/win-64::c-blosc2-2.15.2-h9e57077_1 
+  ca-certificates    conda-forge/noarch::ca-certificates-2025.11.12-h4c7d964_0 
+  cuda-nvrtc         conda-forge/win-64::cuda-nvrtc-12.9.86-hac47afa_1 
+  cuda-version       conda-forge/noarch::cuda-version-12.9-h4f385c5_3 
+  hdf5               conda-forge/win-64::hdf5-1.14.4-nompi_hd5d9e70_105 
+  khronos-opencl-ic~ conda-forge/win-64::khronos-opencl-icd-loader-2024.10.24-h2466b09_1 
+  krb5               conda-forge/win-64::krb5-1.21.3-hdf4eb48_0 
+  libaec             conda-forge/win-64::libaec-1.1.4-h20038f6_0 
+  libblas            conda-forge/win-64::libblas-3.11.0-4_hf2e6a31_mkl 
+  libcblas           conda-forge/win-64::libcblas-3.11.0-4_h2a3cdd5_mkl 
+  libcufft           conda-forge/win-64::libcufft-11.4.1.4-hac47afa_1 
+  libcurl            conda-forge/win-64::libcurl-8.17.0-h43ecb02_0 
+  libexpat           conda-forge/win-64::libexpat-2.7.3-hac47afa_0 
+  libffi             conda-forge/win-64::libffi-3.5.2-h52bdfb6_0 
+  libhwloc           conda-forge/win-64::libhwloc-2.12.1-default_h4379cf1_1003 
+  libiconv           conda-forge/win-64::libiconv-1.18-hc1393d2_2 
+  liblapack          conda-forge/win-64::liblapack-3.11.0-4_hf9ab0e9_mkl 
+  liblzma            conda-forge/win-64::liblzma-5.8.1-h2466b09_2 
+  libsqlite          conda-forge/win-64::libsqlite-3.51.1-hf5d6505_0 
+  libssh2            conda-forge/win-64::libssh2-1.11.1-h9aa295b_0 
+  libwinpthread      conda-forge/win-64::libwinpthread-12.0.0.r4.gg4f2fc60ca-h57928b3_10 
+  libxml2            conda-forge/win-64::libxml2-2.15.1-h5d26750_0 
+  libxml2-16         conda-forge/win-64::libxml2-16-2.15.1-h692994f_0 
+  libzlib            conda-forge/win-64::libzlib-1.3.1-h2466b09_2 
+  llvm-openmp        conda-forge/win-64::llvm-openmp-21.1.7-h4fa8253_0 
+  lz4-c              conda-forge/win-64::lz4-c-1.10.0-h2466b09_1 
+  markdown-it-py     conda-forge/noarch::markdown-it-py-4.0.0-pyhd8ed1ab_0 
+  mdtraj             conda-forge/win-64::mdtraj-1.10.3-py310h1447844_0 
+  mdurl              conda-forge/noarch::mdurl-0.1.2-pyhd8ed1ab_1 
+  mkl                conda-forge/win-64::mkl-2025.3.0-hac47afa_454 
+  numexpr            conda-forge/win-64::numexpr-2.14.1-mkl_py310hc3dba39_1 
+  numpy              conda-forge/win-64::numpy-2.2.6-py310h4987827_0 
+  opencl-headers     conda-forge/win-64::opencl-headers-2025.06.13-he0c23c2_0 
+  openmm             conda-forge/win-64::openmm-8.4.0-py310ha57a109_2 
+  openssl            conda-forge/win-64::openssl-3.6.0-h725018a_0 
+  packaging          conda-forge/noarch::packaging-25.0-pyh29332c3_1 
+  pandas             conda-forge/win-64::pandas-2.3.3-py310hed136d8_2 
+  pdbfixer           conda-forge/noarch::pdbfixer-1.12-pyhd8ed1ab_0 
+  pip                conda-forge/noarch::pip-25.3-pyh8b19718_0 
+  py-cpuinfo         conda-forge/noarch::py-cpuinfo-9.0.0-pyhd8ed1ab_1 
+  pygments           conda-forge/noarch::pygments-2.19.2-pyhd8ed1ab_0 
+  pyparsing          conda-forge/noarch::pyparsing-3.2.5-pyhcf101f3_0 
+  pytables           conda-forge/win-64::pytables-3.10.1-py310h36d347b_4 
+  python             conda-forge/win-64::python-3.10.19-hc20f281_2_cpython 
+  python-dateutil    conda-forge/noarch::python-dateutil-2.9.0.post0-pyhe01879c_2 
+  python-tzdata      conda-forge/noarch::python-tzdata-2025.2-pyhd8ed1ab_0 
+  python_abi         conda-forge/noarch::python_abi-3.10-8_cp310 
+  pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0 
+  pyyaml             conda-forge/win-64::pyyaml-6.0.3-py310hdb0e946_0 
+  rich               conda-forge/noarch::rich-14.2.0-pyhcf101f3_0 
+  scipy              conda-forge/win-64::scipy-1.15.2-py310h15c175c_0 
+  setuptools         conda-forge/noarch::setuptools-80.9.0-pyhff2d567_0 
+  six                conda-forge/noarch::six-1.17.0-pyhe01879c_1 
+  snappy             conda-forge/win-64::snappy-1.2.2-h7fa0ca8_1 
+  tbb                conda-forge/win-64::tbb-2022.3.0-hd094cb3_1 
+  tk                 conda-forge/win-64::tk-8.6.13-h2c6b04d_3 
+  typing-extensions  conda-forge/noarch::typing-extensions-4.15.0-h396c80c_0 
+  typing_extensions  conda-forge/noarch::typing_extensions-4.15.0-pyhcf101f3_0 
+  tzdata             conda-forge/noarch::tzdata-2025b-h78e105d_0 
+  ucrt               conda-forge/win-64::ucrt-10.0.26100.0-h57928b3_0 
+  vc                 conda-forge/win-64::vc-14.3-h2b53caa_33 
+  vc14_runtime       conda-forge/win-64::vc14_runtime-14.44.35208-h818238b_33 
+  vcomp14            conda-forge/win-64::vcomp14-14.44.35208-h818238b_33 
+  wheel              conda-forge/noarch::wheel-0.45.1-pyhd8ed1ab_1 
+  yaml               conda-forge/win-64::yaml-0.2.5-h6a83c73_3 
+  zlib               conda-forge/win-64::zlib-1.3.1-h2466b09_2 
+  zlib-ng            conda-forge/win-64::zlib-ng-2.2.5-h32d8bfd_1 
+  zstd               conda-forge/win-64::zstd-1.5.7-h534d264_6 
+
+
+
+Downloading and Extracting Packages: ...working...libcufft-11.4.1.4    | 154.7 MB  |            |   0% 
+mkl-2025.3.0         | 95.3 MB   |            |   0% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   |            |   0% [A[A
+
+
+python-3.10.19       | 15.4 MB   |            |   0% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   |            |   0% [A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   |            |   0% [A[A[A[A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   |            |   0% [A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    |            |   0% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    |            |   0% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    |            |   0% [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    |            |   0% [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+vc14_runtime-14.44.3 | 668 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+pdbfixer-1.12        | 545 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+llvm-openmp-21.1.7   | 340 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+python-dateutil-2.9. | 228 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c-blosc2-2.15.2      | 210 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rich-14.2.0          | 196 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  |            |   0% 
+
+
+python-3.10.19       | 15.4 MB   |            |   0% [A[A[A
+mkl-2025.3.0         | 95.3 MB   |            |   0% [A
+
+
+
+scipy-1.15.2         | 13.7 MB   |            |   0% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   |            |   0% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | 1          |   1% [A[A[A[A
+
+
+python-3.10.19       | 15.4 MB   | 1          |   1% [A[A[A
+mkl-2025.3.0         | 95.3 MB   |            |   0% [Alibcufft-11.4.1.4    | 154.7 MB  |            |   0% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   |            |   0% [A[Alibcufft-11.4.1.4    | 154.7 MB  |            |   0% 
+mkl-2025.3.0         | 95.3 MB   |            |   1% [A
+
+
+python-3.10.19       | 15.4 MB   | 4          |   5% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | 4          |   5% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   |            |   1% [A[Alibcufft-11.4.1.4    | 154.7 MB  |            |   1% 
+mkl-2025.3.0         | 95.3 MB   | 1          |   1% [A
+
+
+python-3.10.19       | 15.4 MB   | 7          |   8% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | 6          |   7% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   |            |   1% [A[Alibcufft-11.4.1.4    | 154.7 MB  |            |   1% 
+mkl-2025.3.0         | 95.3 MB   | 1          |   2% [A
+
+
+python-3.10.19       | 15.4 MB   | #          |  11% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | 8          |   9% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 1          |   1% [A[A
+mkl-2025.3.0         | 95.3 MB   | 2          |   2% [A
+
+
+python-3.10.19       | 15.4 MB   | #5         |  15% [A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 1          |   1% 
+
+
+
+scipy-1.15.2         | 13.7 MB   | #1         |  12% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 1          |   2% [A[A
+mkl-2025.3.0         | 95.3 MB   | 2          |   2% [Alibcufft-11.4.1.4    | 154.7 MB  | 1          |   2% 
+
+
+python-3.10.19       | 15.4 MB   | #7         |  18% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 1          |   2% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #3         |  13% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 2          |   3% [A
+
+
+python-3.10.19       | 15.4 MB   | #9         |  20% [A[A[A
+mkl-2025.3.0         | 95.3 MB   | 3          |   3% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 2          |   2% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #6         |  16% [A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 1          |   2% 
+
+
+python-3.10.19       | 15.4 MB   | ##5        |  26% [A[A[A
+mkl-2025.3.0         | 95.3 MB   | 4          |   4% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 2          |   3% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ##         |  21% [A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 2          |   2% 
+mkl-2025.3.0         | 95.3 MB   | 4          |   5% [A
+
+
+python-3.10.19       | 15.4 MB   | ##8        |  29% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ##3        |  23% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 2          |   3% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 2          |   3% 
+mkl-2025.3.0         | 95.3 MB   | 5          |   5% [A
+
+
+python-3.10.19       | 15.4 MB   | ###1       |  32% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ##5        |  25% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 3          |   3% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 3          |   3% 
+mkl-2025.3.0         | 95.3 MB   | 5          |   6% [A
+
+
+python-3.10.19       | 15.4 MB   | ###4       |  35% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ##8        |  28% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 3          |   4% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 3          |   3% 
+
+
+python-3.10.19       | 15.4 MB   | ###7       |  38% [A[A[A
+mkl-2025.3.0         | 95.3 MB   | 6          |   6% [A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ###        |  31% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 3          |   4% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 3          |   4% 
+
+
+python-3.10.19       | 15.4 MB   | ####       |  41% [A[A[A
+mkl-2025.3.0         | 95.3 MB   | 6          |   6% [A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ###2       |  33% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 4          |   4% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 3          |   4% 
+
+
+python-3.10.19       | 15.4 MB   | ####3      |  44% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ###5       |  36% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 7          |   7% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 4          |   5% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 4          |   4% 
+
+
+python-3.10.19       | 15.4 MB   | ####6      |  47% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ###8       |  38% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 7          |   8% [Alibcufft-11.4.1.4    | 154.7 MB  | 4          |   4% 
+
+
+python-3.10.19       | 15.4 MB   | ####9      |  50% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 5          |   5% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ####1      |  42% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 8          |   8% [Alibcufft-11.4.1.4    | 154.7 MB  | 4          |   5% 
+
+
+python-3.10.19       | 15.4 MB   | #####4     |  54% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 5          |   6% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ####4      |  44% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 8          |   9% [Alibcufft-11.4.1.4    | 154.7 MB  | 5          |   5% 
+
+
+python-3.10.19       | 15.4 MB   | #####8     |  59% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 6          |   6% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ####7      |  48% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | 9          |  10% [Alibcufft-11.4.1.4    | 154.7 MB  | 5          |   6% 
+
+
+python-3.10.19       | 15.4 MB   | ######2    |  63% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 6          |   7% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #####1     |  52% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #          |  10% [A
+
+
+python-3.10.19       | 15.4 MB   | ######6    |  66% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #####4     |  55% [A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 6          |   6% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 7          |   7% [A[A
+mkl-2025.3.0         | 95.3 MB   | #1         |  11% [A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #####7     |  58% [A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 6          |   6% 
+
+
+python-3.10.19       | 15.4 MB   | ######9    |  69% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 7          |   8% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 6          |   7% 
+
+
+python-3.10.19       | 15.4 MB   | #######3   |  73% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ######     |  61% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #1         |  12% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 8          |   8% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ######5    |  66% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #2         |  13% [Alibcufft-11.4.1.4    | 154.7 MB  | 7          |   7% 
+
+
+python-3.10.19       | 15.4 MB   | #######7   |  78% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 8          |   9% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 7          |   7% 
+
+
+python-3.10.19       | 15.4 MB   | ########2  |  82% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ######9    |  69% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #3         |  13% [Alibcufft-11.4.1.4    | 154.7 MB  | 7          |   8% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 9          |   9% [A[A
+
+
+python-3.10.19       | 15.4 MB   | ########5  |  85% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #######3   |  74% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | 9          |  10% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 8          |   8% 
+mkl-2025.3.0         | 95.3 MB   | #3         |  14% [A
+
+
+python-3.10.19       | 15.4 MB   | ########8  |  89% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #          |  10% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #######7   |  78% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #4         |  14% [Alibcufft-11.4.1.4    | 154.7 MB  | 8          |   8% 
+
+
+python-3.10.19       | 15.4 MB   | #########1 |  92% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #          |  11% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ########   |  81% [A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | 8          |   9% 
+
+
+python-3.10.19       | 15.4 MB   | #########5 |  95% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ########6  |  86% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #1         |  11% [A[A
+mkl-2025.3.0         | 95.3 MB   | #5         |  15% [Alibcufft-11.4.1.4    | 154.7 MB  | 9          |   9% 
+
+
+python-3.10.19       | 15.4 MB   | #########8 |  99% [A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ########9  |  90% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #6         |  16% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #2         |  12% [A[Alibcufft-11.4.1.4    | 154.7 MB  | 9          |  10% 
+
+
+python-3.10.19       | 15.4 MB   | ########## | 100% [A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #2         |  13% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #########3 |  93% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #6         |  17% [Alibcufft-11.4.1.4    | 154.7 MB  | #          |  10% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #3         |  13% [A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | #########8 |  99% [A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #7         |  18% [A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   |            |   0% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #          |  10% 
+
+
+
+scipy-1.15.2         | 13.7 MB   | ########## | 100% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #3         |  14% [A[A
+mkl-2025.3.0         | 95.3 MB   | #8         |  18% [A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | 4          |   4% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #          |  11% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #4         |  14% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   |            |   0% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #          |  11% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #1         |  11% 
+mkl-2025.3.0         | 95.3 MB   | #8         |  19% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #5         |  15% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | 4          |   5% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #4         |  15% [A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #9         |  20% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | 9          |   9% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #1         |  11% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #5         |  16% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##         |  20% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #2         |  12% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #8         |  19% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #1         |  12% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #6         |  16% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##         |  21% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #5         |  16% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ##2        |  23% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #2         |  12% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #6         |  17% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##1        |  21% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #9         |  19% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ##6        |  27% [A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #7         |  17% [A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ###        |  31% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #2         |  12% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #7         |  18% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ##4        |  25% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ###4       |  35% [A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #8         |  19% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##1        |  22% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ##8        |  29% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ###8       |  39% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #2         |  13% 
+mkl-2025.3.0         | 95.3 MB   | ##2        |  23% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ###4       |  34% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ####2      |  43% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #3         |  13% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #9         |  20% [A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ####7      |  47% [A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ##3        |  23% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##         |  21% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ###9       |  40% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #####1     |  51% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #3         |  14% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##1        |  21% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##3        |  24% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ####3      |  44% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #####5     |  55% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #3         |  14% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##1        |  22% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ####7      |  47% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #4         |  14% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##2        |  23% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #####1     |  51% [A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ##4        |  24% [A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #####9     |  59% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #4         |  15% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##3        |  23% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##5        |  25% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #####4     |  55% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ######4    |  64% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #4         |  15% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##3        |  24% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #####8     |  59% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ######8    |  69% [A[A[A[A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ######2    |  62% [A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ##6        |  26% [A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #######2   |  73% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #5         |  16% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##4        |  25% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ######6    |  66% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #######6   |  77% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #5         |  16% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##5        |  25% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##6        |  27% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #######    |  71% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #6         |  16% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##6        |  26% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##7        |  28% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #######5   |  76% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ########   |  80% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #6         |  16% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##6        |  27% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #######9   |  80% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ########6  |  86% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #6         |  17% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##7        |  28% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ########4  |  84% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #7         |  17% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##8        |  28% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##8        |  28% [A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ########8  |  88% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #########  |  90% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #7         |  17% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##9        |  29% [A[A
+mkl-2025.3.0         | 95.3 MB   | ##9        |  29% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ##9        |  30% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #########2 |  92% [A[A[A[A[A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | #########9 |  99% [A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #7         |  18% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###        |  31% [A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | #########5 |  96% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #7         |  18% 
+mkl-2025.3.0         | 95.3 MB   | ###        |  30% [A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ########## | 100% [A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###1       |  31% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###2       |  32% [A[Alibcufft-11.4.1.4    | 154.7 MB  | #8         |  18% 
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    |            |   0% [A[A[A[A[A[A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ########## | 100% [A[A[A[A[A[A
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ########## | 100% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #8         |  19% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###3       |  33% [A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    |            |   1% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | 7          |   8% [A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###1       |  32% [A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | #5         |  16% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | #4         |  14% [A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #9         |  19% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###3       |  34% [A[A
+mkl-2025.3.0         | 95.3 MB   | ###2       |  32% [A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | ###1       |  32% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ##1        |  21% [A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #9         |  19% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###4       |  35% [A[A
+mkl-2025.3.0         | 95.3 MB   | ###2       |  33% [Alibcufft-11.4.1.4    | 154.7 MB  | #9         |  20% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###5       |  36% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ##7        |  27% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | #####2     |  52% [A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###3       |  33% [Alibcufft-11.4.1.4    | 154.7 MB  | #9         |  20% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###6       |  36% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ###3       |  34% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | #######    |  71% [A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###3       |  34% [Alibcufft-11.4.1.4    | 154.7 MB  | ##         |  20% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###7       |  37% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ####       |  40% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | ########8  |  88% [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | ########## | 100% [A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##         |  21% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###8       |  38% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ####9      |  50% [A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | #####7     |  58% [A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##         |  21% 
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    |            |   1% [A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ###8       |  39% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ######4    |  65% [A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###4       |  34% [Alibcufft-11.4.1.4    | 154.7 MB  | ##1        |  21% 
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ##         |  21% [A[A[A[A[A[A[A[A[A
+
+
+
+scipy-1.15.2         | 13.7 MB   | ########## | 100% [A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####       |  40% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | #######1   |  72% [A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###5       |  35% [Alibcufft-11.4.1.4    | 154.7 MB  | ##1        |  21% 
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ####2      |  42% [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | #######8   |  79% [A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##1        |  22% 
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ######3    |  64% [A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####       |  41% [A[A
+mkl-2025.3.0         | 95.3 MB   | ###5       |  36% [Alibcufft-11.4.1.4    | 154.7 MB  | ##1        |  22% 
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ########5  |  86% [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ########6  |  86% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###6       |  37% [Alibcufft-11.4.1.4    | 154.7 MB  | ##2        |  22% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####1      |  42% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | #########6 |  97% [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    | 1          |   1% [A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###7       |  38% [Alibcufft-11.4.1.4    | 154.7 MB  | ##2        |  23% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####4      |  44% [A[A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ########## | 100% [A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ###8       |  39% [A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    | ######     |  60% [A[A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####5      |  46% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##3        |  23% 
+mkl-2025.3.0         | 95.3 MB   | ###9       |  39% [A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##3        |  24% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####6      |  47% [A[A
+mkl-2025.3.0         | 95.3 MB   | ####       |  40% [A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | 1          |   1% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    | 1          |   2% [A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##3        |  24% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####7      |  48% [A[A
+mkl-2025.3.0         | 95.3 MB   | ####       |  41% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####8      |  49% [A[A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | ###5       |  36% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    | #####7     |  57% [A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##4        |  24% 
+mkl-2025.3.0         | 95.3 MB   | ####1      |  41% [A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | ######9    |  69% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##4        |  25% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ####9      |  50% [A[A
+mkl-2025.3.0         | 95.3 MB   | ####1      |  42% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+pdbfixer-1.12        | 545 KB    | 2          |   3% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+vc14_runtime-14.44.3 | 668 KB    | 2          |   2% [A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##5        |  25% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####1     |  51% [A[A
+mkl-2025.3.0         | 95.3 MB   | ####2      |  42% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+pdbfixer-1.12        | 545 KB    | ######7    |  67% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####2     |  52% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##5        |  25% 
+mkl-2025.3.0         | 95.3 MB   | ####2      |  43% [A
+
+
+
+
+
+
+
+
+
+
+
+
+vc14_runtime-14.44.3 | 668 KB    | ########3  |  84% [A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+pdbfixer-1.12        | 545 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+vc14_runtime-14.44.3 | 668 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ####3      |  44% [Alibcufft-11.4.1.4    | 154.7 MB  | ##5        |  26% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####3     |  54% [A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+llvm-openmp-21.1.7   | 340 KB    | 4          |   5% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+python-dateutil-2.9. | 228 KB    | 7          |   7% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+python-dateutil-2.9. | 228 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+llvm-openmp-21.1.7   | 340 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ####4      |  44% [Alibcufft-11.4.1.4    | 154.7 MB  | ##6        |  26% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####5     |  55% [A[A
+
+
+
+
+openmm-8.4.0         | 11.3 MB   | ########## | 100% [A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rich-14.2.0          | 196 KB    | 8          |   8% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ####5      |  45% [Alibcufft-11.4.1.4    | 154.7 MB  | ##6        |  27% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c-blosc2-2.15.2      | 210 KB    | 7          |   8% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####6     |  57% [A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rich-14.2.0          | 196 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c-blosc2-2.15.2      | 210 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##6        |  27% 
+mkl-2025.3.0         | 95.3 MB   | ####5      |  46% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####7     |  58% [A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##7        |  27% 
+mkl-2025.3.0         | 95.3 MB   | ####6      |  46% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #####9     |  59% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##7        |  28% 
+mkl-2025.3.0         | 95.3 MB   | ####6      |  47% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######     |  61% [A[A
+mkl-2025.3.0         | 95.3 MB   | ####7      |  48% [Alibcufft-11.4.1.4    | 154.7 MB  | ##8        |  28% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######1    |  62% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##8        |  28% 
+mkl-2025.3.0         | 95.3 MB   | ####8      |  48% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######3    |  63% [A[A
+
+
+python-3.10.19       | 15.4 MB   | ########## | 100% [A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ##8        |  29% 
+mkl-2025.3.0         | 95.3 MB   | ####8      |  49% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######4    |  65% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##9        |  29% 
+mkl-2025.3.0         | 95.3 MB   | ####9      |  50% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######6    |  66% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ##9        |  30% 
+mkl-2025.3.0         | 95.3 MB   | #####      |  51% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######7    |  68% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####1     |  51% [Alibcufft-11.4.1.4    | 154.7 MB  | ###        |  30% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ######8    |  69% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####1     |  52% [Alibcufft-11.4.1.4    | 154.7 MB  | ###        |  31% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######    |  70% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####2     |  53% [Alibcufft-11.4.1.4    | 154.7 MB  | ###1       |  31% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######1   |  71% [A[A
+
+
+
+
+
+
+
+
+hdf5-1.14.4          | 2.0 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #####3     |  54% [Alibcufft-11.4.1.4    | 154.7 MB  | ###1       |  32% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######2   |  73% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####4     |  54% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######4   |  74% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###1       |  32% 
+
+
+
+
+
+
+
+libhwloc-2.12.1      | 2.3 MB    | ########## | 100% [A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #####5     |  55% [Alibcufft-11.4.1.4    | 154.7 MB  | ###2       |  32% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######5   |  75% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####5     |  56% [Alibcufft-11.4.1.4    | 154.7 MB  | ###2       |  33% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######6   |  76% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####6     |  56% [Alibcufft-11.4.1.4    | 154.7 MB  | ###3       |  33% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######7   |  78% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####7     |  57% [Alibcufft-11.4.1.4    | 154.7 MB  | ###3       |  33% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #######8   |  79% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####7     |  58% [Alibcufft-11.4.1.4    | 154.7 MB  | ###3       |  34% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########   |  80% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####8     |  59% [Alibcufft-11.4.1.4    | 154.7 MB  | ###4       |  34% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########1  |  81% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####9     |  59% [Alibcufft-11.4.1.4    | 154.7 MB  | ###4       |  35% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########2  |  82% [A[A
+mkl-2025.3.0         | 95.3 MB   | #####9     |  60% [Alibcufft-11.4.1.4    | 154.7 MB  | ###5       |  35% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########3  |  83% [A[A
+mkl-2025.3.0         | 95.3 MB   | ######1    |  61% [Alibcufft-11.4.1.4    | 154.7 MB  | ###6       |  36% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########5  |  85% [A[A
+
+
+
+
+
+
+
+
+
+pytables-3.10.1      | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ######2    |  62% [Alibcufft-11.4.1.4    | 154.7 MB  | ###6       |  36% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########6  |  87% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###6       |  37% 
+mkl-2025.3.0         | 95.3 MB   | ######2    |  63% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########7  |  88% [A[A
+mkl-2025.3.0         | 95.3 MB   | ######3    |  64% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########8  |  89% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###7       |  37% 
+mkl-2025.3.0         | 95.3 MB   | ######4    |  64% [Alibcufft-11.4.1.4    | 154.7 MB  | ###7       |  38% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########  |  90% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###8       |  38% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########1 |  91% [A[A
+mkl-2025.3.0         | 95.3 MB   | ######5    |  65% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########2 |  93% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###8       |  39% 
+mkl-2025.3.0         | 95.3 MB   | ######5    |  66% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########3 |  94% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###9       |  39% 
+mkl-2025.3.0         | 95.3 MB   | ######6    |  67% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########4 |  95% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ###9       |  40% 
+mkl-2025.3.0         | 95.3 MB   | ######7    |  67% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########6 |  96% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ####       |  40% 
+mkl-2025.3.0         | 95.3 MB   | ######8    |  68% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########7 |  97% [A[A
+mkl-2025.3.0         | 95.3 MB   | ######8    |  69% [Alibcufft-11.4.1.4    | 154.7 MB  | ####       |  40% 
+
+
+
+
+
+
+
+
+
+
+
+pygments-2.19.2      | 868 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########8 |  99% [A[A
+mkl-2025.3.0         | 95.3 MB   | ######9    |  69% [Alibcufft-11.4.1.4    | 154.7 MB  | ####1      |  41% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | #########9 | 100% [A[A
+mkl-2025.3.0         | 95.3 MB   | #######    |  70% [Alibcufft-11.4.1.4    | 154.7 MB  | ####1      |  41% libcufft-11.4.1.4    | 154.7 MB  | ####2      |  42% 
+mkl-2025.3.0         | 95.3 MB   | #######1   |  71% [A
+mkl-2025.3.0         | 95.3 MB   | #######2   |  72% [Alibcufft-11.4.1.4    | 154.7 MB  | ####2      |  43% libcufft-11.4.1.4    | 154.7 MB  | ####3      |  43% 
+mkl-2025.3.0         | 95.3 MB   | #######2   |  73% [Alibcufft-11.4.1.4    | 154.7 MB  | ####3      |  44% 
+mkl-2025.3.0         | 95.3 MB   | #######3   |  74% [Alibcufft-11.4.1.4    | 154.7 MB  | ####4      |  44% 
+mkl-2025.3.0         | 95.3 MB   | #######4   |  75% [A
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########## | 100% [A[A
+mkl-2025.3.0         | 95.3 MB   | #######5   |  76% [Alibcufft-11.4.1.4    | 154.7 MB  | ####4      |  45% libcufft-11.4.1.4    | 154.7 MB  | ####5      |  45% 
+mkl-2025.3.0         | 95.3 MB   | #######6   |  76% [Alibcufft-11.4.1.4    | 154.7 MB  | ####5      |  46% 
+mkl-2025.3.0         | 95.3 MB   | #######7   |  77% [A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+mdtraj-1.10.3        | 1.2 MB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ####6      |  47% 
+mkl-2025.3.0         | 95.3 MB   | #######8   |  78% [Alibcufft-11.4.1.4    | 154.7 MB  | ####7      |  47% 
+mkl-2025.3.0         | 95.3 MB   | #######9   |  79% [Alibcufft-11.4.1.4    | 154.7 MB  | ####8      |  48% 
+mkl-2025.3.0         | 95.3 MB   | ########   |  81% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+pdbfixer-1.12        | 545 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ####8      |  49% 
+mkl-2025.3.0         | 95.3 MB   | ########1  |  82% [Alibcufft-11.4.1.4    | 154.7 MB  | ####9      |  49% 
+mkl-2025.3.0         | 95.3 MB   | ########2  |  82% [A
+
+
+
+
+
+
+
+
+
+
+
+
+vc14_runtime-14.44.3 | 668 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #####      |  50% 
+mkl-2025.3.0         | 95.3 MB   | ########3  |  84% [Alibcufft-11.4.1.4    | 154.7 MB  | #####      |  51% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+python-dateutil-2.9. | 228 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+python-dateutil-2.9. | 228 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | ########4  |  85% [A
+mkl-2025.3.0         | 95.3 MB   | ########5  |  86% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+llvm-openmp-21.1.7   | 340 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+llvm-openmp-21.1.7   | 340 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #####1     |  51% 
+mkl-2025.3.0         | 95.3 MB   | ########6  |  87% [Alibcufft-11.4.1.4    | 154.7 MB  | #####2     |  52% 
+mkl-2025.3.0         | 95.3 MB   | ########7  |  88% [Alibcufft-11.4.1.4    | 154.7 MB  | #####3     |  53% 
+mkl-2025.3.0         | 95.3 MB   | ########8  |  89% [Alibcufft-11.4.1.4    | 154.7 MB  | #####3     |  54% 
+mkl-2025.3.0         | 95.3 MB   | ########9  |  90% [A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rich-14.2.0          | 196 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rich-14.2.0          | 196 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #####4     |  54% 
+mkl-2025.3.0         | 95.3 MB   | #########  |  91% [A
+
+
+
+
+
+
+numpy-2.2.6          | 6.3 MB    | ########## | 100% [A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #####5     |  55% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c-blosc2-2.15.2      | 210 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c-blosc2-2.15.2      | 210 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+mkl-2025.3.0         | 95.3 MB   | #########2 |  92% [Alibcufft-11.4.1.4    | 154.7 MB  | #####5     |  56% 
+mkl-2025.3.0         | 95.3 MB   | #########3 |  93% [Alibcufft-11.4.1.4    | 154.7 MB  | #####6     |  56% 
+mkl-2025.3.0         | 95.3 MB   | #########4 |  94% [Alibcufft-11.4.1.4    | 154.7 MB  | #####7     |  57% 
+mkl-2025.3.0         | 95.3 MB   | #########5 |  95% [Alibcufft-11.4.1.4    | 154.7 MB  | #####8     |  58% 
+mkl-2025.3.0         | 95.3 MB   | #########6 |  97% [Alibcufft-11.4.1.4    | 154.7 MB  | #####8     |  59% 
+mkl-2025.3.0         | 95.3 MB   | #########8 |  98% [Alibcufft-11.4.1.4    | 154.7 MB  | #####9     |  60% 
+mkl-2025.3.0         | 95.3 MB   | #########9 |  99% [Alibcufft-11.4.1.4    | 154.7 MB  | ######     |  61% libcufft-11.4.1.4    | 154.7 MB  | ######1    |  62% libcufft-11.4.1.4    | 154.7 MB  | ######2    |  63% libcufft-11.4.1.4    | 154.7 MB  | ######3    |  63% libcufft-11.4.1.4    | 154.7 MB  | ######4    |  64% libcufft-11.4.1.4    | 154.7 MB  | ######5    |  65% libcufft-11.4.1.4    | 154.7 MB  | ######6    |  66% libcufft-11.4.1.4    | 154.7 MB  | ######7    |  67% 
+mkl-2025.3.0         | 95.3 MB   | ########## | 100% [Alibcufft-11.4.1.4    | 154.7 MB  | ######8    |  69% 
+
+
+
+
+
+pandas-2.3.3         | 11.0 MB   | ########## | 100% [A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | ######9    |  70% libcufft-11.4.1.4    | 154.7 MB  | #######1   |  71% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ... (more hidden) ...[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Alibcufft-11.4.1.4    | 154.7 MB  | #######2   |  73% libcufft-11.4.1.4    | 154.7 MB  | #######3   |  74% libcufft-11.4.1.4    | 154.7 MB  | #######5   |  75% libcufft-11.4.1.4    | 154.7 MB  | #######6   |  77% libcufft-11.4.1.4    | 154.7 MB  | #######7   |  78% libcufft-11.4.1.4    | 154.7 MB  | #######9   |  79% libcufft-11.4.1.4    | 154.7 MB  | ########   |  80% libcufft-11.4.1.4    | 154.7 MB  | ########2  |  83% libcufft-11.4.1.4    | 154.7 MB  | ########3  |  84% libcufft-11.4.1.4    | 154.7 MB  | ########5  |  85% libcufft-11.4.1.4    | 154.7 MB  | ########6  |  87% libcufft-11.4.1.4    | 154.7 MB  | ########7  |  88% libcufft-11.4.1.4    | 154.7 MB  | #########  |  90% libcufft-11.4.1.4    | 154.7 MB  | #########1 |  92% libcufft-11.4.1.4    | 154.7 MB  | #########3 |  93% libcufft-11.4.1.4    | 154.7 MB  | #########4 |  95% libcufft-11.4.1.4    | 154.7 MB  | #########5 |  96% libcufft-11.4.1.4    | 154.7 MB  | #########8 |  98% libcufft-11.4.1.4    | 154.7 MB  | #########9 |  99% 
+
+cuda-nvrtc-12.9.86   | 55.8 MB   | ########## | 100% [A[Alibcufft-11.4.1.4    | 154.7 MB  | ########## | 100% 
+mkl-2025.3.0         | 95.3 MB   | ########## | 100% [Alibcufft-11.4.1.4    | 154.7 MB  | ########## | 100% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A                                                     
+                                                     [A
+
+                                                     [A[A
+
+
+                                                     [A[A[A
+
+
+
+                                                     [A[A[A[A
+
+
+
+
+                                                     [A[A[A[A[A
+
+
+
+
+
+                                                     [A[A[A[A[A[A
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+[A
+
+[A[A
+
+
+[A[A[A
+
+
+
+[A[A[A[A
+
+
+
+
+[A[A[A[A[A
+
+
+
+
+
+[A[A[A[A[A[A
+
+
+
+
+
+
+[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
+[A
+
+[A[A
+
+
+[A[A[A
+
+
+
+[A[A[A[A
+
+
+
+
+[A[A[A[A[A
+
+
+
+
+
+[A[A[A[A[A[A
+
+
+
+
+
+
+[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+[A[A[A[A[A[A[A[A done
+Preparing transaction: \ | / - \ | / - \ | / - \ | / - \ | / - \ done
+Verifying transaction: / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - done
+Executing transaction: | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | done
+#
+# To activate this environment, use
+#
+#     $ conda activate fastmds
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+

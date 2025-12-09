@@ -50,6 +50,24 @@ fastmds simulate -system protein.pdb -o simulate_output --config config.yml --an
 - Human-readable console logs; a file log is written to `<output>/<project>/fastmds.log`.
 - `--dry-run` prints the exact `fastmda analyze` command(s) that would run.
 
+## PLUMED (optional)
+- Install (Linux/WSL recommended): `mamba install -c conda-forge openmm-plumed`.
+- CLI (all stages):
+	```bash
+	fastmds simulate -system job.yml --plumed --plumed-script plumed.dat --plumed-log-frequency 100
+	```
+- YAML (default and per-stage overrides):
+	```yaml
+	defaults:
+		plumed:
+			enabled: true
+			script: plumed.dat
+			log_frequency: 100
+	stages:
+		- { name: nvt, steps: 5000, plumed: { enabled: true, script: stage_nvt.dat } }
+	```
+- Outputs (COLVAR, HILLS, etc.) are auto-written inside each stage directory.
+
 ---
 
 ## Tips

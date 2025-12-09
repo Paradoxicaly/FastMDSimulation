@@ -66,7 +66,10 @@ def build_auto_config(fixed_pdb: Path, project: Optional[str] = None) -> Dict[st
 
 
 def simulate_from_pdb(
-    system_pdb: str, outdir: str = "simulate_output", config: Optional[str] = None
+    system_pdb: str,
+    outdir: str = "simulate_output",
+    config: Optional[str] = None,
+    overrides: Optional[Dict[str, Any]] = None,
 ) -> str:
     # Local import to avoid circular import at module import-time
     from .orchestrator import run_from_yaml
@@ -89,9 +92,12 @@ def simulate_from_pdb(
             over = yaml.safe_load(f) or {}
         cfg = _deep_update(cfg, over)
 
+    if overrides:
+        cfg = _deep_update(cfg, overrides)
+
     auto_yml = build_dir / "job.auto.yml"
     with open(auto_yml, "w") as f:
         yaml.safe_dump(cfg, f, sort_keys=False)
 
-    project_dir = run_from_yaml(str(auto_yml), outdir)
+    project_dir = run_from_yaml(str(auto_yml), outdir, overrides=None)
     return project_dir
