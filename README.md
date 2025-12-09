@@ -530,6 +530,7 @@ Aina, A. (2025) "FastMDSimulation: Software for Automated Molecular Dynamics Sim
 - `OpenMM` for the high-performance molecular dynamics engine
 - `openmmforcefields` for providing CHARMM36 and other force fields
 - `PDBFixer` for structure preparation and repair
+- `PLUMED` for optional biasing and collective variable support via OpenMM integration
 - `FastMDAnalysis` for automated analysis of MD trajectories
 - `NumPy/SciPy` for efficient numerical computations
 

@@ -42,11 +42,18 @@ source_suffix = {
 # Treat top-level README headings as-is (MyST default), no extra config here.
 
 html_theme = "furo"
-html_static_path = []
+html_theme_options = {
+    "navigation_with_keys": True,
+    "sidebar_hide_name": True,
+}
+html_logo = "assets/fastmdsimulation_banner.png"
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Relax MyST heading level warnings from imported Markdown (README)
 suppress_warnings = ["myst.header"]
 html_title = project
+exclude_patterns = ["_build", "**/furo.js.LICENSE.txt"]
 
 # Ensure src is on path for autodoc
 sys.path.insert(0, os.path.abspath("../src"))
