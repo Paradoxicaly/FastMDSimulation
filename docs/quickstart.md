@@ -59,12 +59,12 @@ fastmds simulate -system protein.pdb -o simulate_output --config config.yml --an
 - YAML (default and per-stage overrides):
 	```yaml
 	defaults:
-		plumed:
-			enabled: true
-			script: plumed.dat
-			log_frequency: 100
+	  plumed:
+	    enabled: true
+	    script: plumed.dat
+	    log_frequency: 100
 	stages:
-		- { name: nvt, steps: 5000, plumed: { enabled: true, script: stage_nvt.dat } }
+	  - { name: nvt, steps: 5000, plumed: { enabled: true, script: stage_nvt.dat } }
 	```
 - Outputs (COLVAR, HILLS, etc.) are auto-written inside each stage directory.
 
