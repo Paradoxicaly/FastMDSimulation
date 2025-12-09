@@ -21,6 +21,7 @@ except Exception:
     import importlib_metadata  # type: ignore
 
 from ..engines.openmm_engine import build_simulation_from_spec, run_stage
+from .ligand import build_protein_ligand_system_with_gaff
 from ..utils.logging import attach_file_logger, get_logger
 from .pdbfix import fix_pdb_with_pdbfixer  # strict fixer (no circular import)
 
@@ -114,6 +115,8 @@ def write_example_config(path: str) -> None:
 # Detection & preparation
 # ------------------------------
 def _detect_system_type(sys_cfg: Dict[str, Any]) -> str:
+    if ("fixed_pdb" in sys_cfg or "pdb" in sys_cfg) and "ligand" in sys_cfg:
+        return "pdb_ligand"
     if "fixed_pdb" in sys_cfg or "pdb" in sys_cfg:
         return "pdb"
     if "prmtop" in sys_cfg and ("inpcrd" in sys_cfg or "rst7" in sys_cfg):
@@ -148,23 +151,63 @@ def _prepare_systems(cfg: Dict[str, Any], base: Path) -> Dict[str, Any]:
         stype = _detect_system_type(s)
         s["type"] = stype
 
-        if stype == "pdb":
+        if stype in ("pdb", "pdb_ligand"):
             system_id = s.get("id") or Path(s.get("pdb") or s.get("fixed_pdb")).stem
             # per-system pH overrides defaults if provided
             ph = float(s.get("ph", default_ph))
 
-            if "fixed_pdb" in s and s["fixed_pdb"]:
-                used = Path(s["fixed_pdb"]).expanduser().resolve()
-                s["pdb"] = str(used)  # normalize downstream to always use 'pdb'
-                # keep user-declared source_pdb if any
+            # Ligand-bearing path: build an Amber system with GAFF
+            if stype == "pdb_ligand":
+                ligand = Path(s["ligand"]).expanduser().resolve()
+                output_prefix = build_dir / f"{Path(system_id).stem}_complex"
+                ligand_charge = s.get("ligand_charge")
+                ligand_name = s.get("ligand_name", "LIG")
+                gaff = s.get("ligand_gaff", "gaff2")
+                box_padding_nm = float(s.get("box_padding_nm", defaults.get("box_padding_nm", 1.0)))
+                neutralize = bool(s.get("neutralize", defaults.get("neutralize", True)))
+                keep_heterogens = bool(s.get("keep_heterogens", False))
+                keep_water = bool(s.get("keep_water", False))
+
+                built = build_protein_ligand_system_with_gaff(
+                    s.get("pdb") or s.get("fixed_pdb"),
+                    str(ligand),
+                    str(output_prefix),
+                    ph=ph,
+                    charge_method=s.get("ligand_charge_method", "bcc"),
+                    net_charge=ligand_charge,
+                    ligand_name=ligand_name,
+                    gaff=gaff,
+                    box_padding_nm=box_padding_nm,
+                    neutralize=neutralize,
+                    keep_heterogens=keep_heterogens,
+                    keep_water=keep_water,
+                )
+
+                # Convert to Amber-style spec for downstream engine
+                s.update(
+                    {
+                        "type": "amber",
+                        "prmtop": built["prmtop"],
+                        "inpcrd": built["inpcrd"],
+                        "pdb": built["pdb"],
+                        "source_pdb": s.get("pdb") or s.get("fixed_pdb"),
+                        "source_ligand": str(ligand),
+                    }
+                )
+
             else:
-                in_pdb = Path(s["pdb"]).expanduser().resolve()
-                fixed_path = build_dir / f"{Path(system_id).stem}_fixed.pdb"
-                # Strict PDBFixer — raises on failure
-                fix_pdb_with_pdbfixer(str(in_pdb), str(fixed_path), ph=ph)
-                s["source_pdb"] = str(in_pdb)
-                s["pdb"] = str(fixed_path)
-                s["fixed_pdb"] = str(fixed_path)  # record where the fixed file lives
+                if "fixed_pdb" in s and s["fixed_pdb"]:
+                    used = Path(s["fixed_pdb"]).expanduser().resolve()
+                    s["pdb"] = str(used)  # normalize downstream to always use 'pdb'
+                    # keep user-declared source_pdb if any
+                else:
+                    in_pdb = Path(s["pdb"]).expanduser().resolve()
+                    fixed_path = build_dir / f"{Path(system_id).stem}_fixed.pdb"
+                    # Strict PDBFixer — raises on failure
+                    fix_pdb_with_pdbfixer(str(in_pdb), str(fixed_path), ph=ph)
+                    s["source_pdb"] = str(in_pdb)
+                    s["pdb"] = str(fixed_path)
+                    s["fixed_pdb"] = str(fixed_path)  # record where the fixed file lives
 
         # amber/gromacs/charmm: pass-through
         new_systems.append(s)

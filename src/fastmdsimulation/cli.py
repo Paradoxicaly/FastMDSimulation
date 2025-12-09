@@ -196,6 +196,36 @@ def main():
         help="Print resolved plan (stages, durations, output dirs) and exit. "
         "If --analyze is set, also print the exact fastmda analyze command(s).",
     )
+    # Ligand helpers (protein–ligand one-shot)
+    p_sim.add_argument(
+        "--ligand",
+        default=None,
+        help="Ligand structure file (SDF or MOL2) for GAFF/GAFF2 auto-parameterization",
+    )
+    p_sim.add_argument(
+        "--ligand-charge",
+        type=int,
+        default=None,
+        help="Net ligand charge (default 0)",
+    )
+    p_sim.add_argument(
+        "--ligand-name",
+        type=str,
+        default="LIG",
+        help="Ligand residue name (default LIG)",
+    )
+    p_sim.add_argument(
+        "--ligand-charge-method",
+        choices=["bcc", "gas", "resp"],
+        default="bcc",
+        help="Charge assignment method for antechamber (default bcc)",
+    )
+    p_sim.add_argument(
+        "--ligand-gaff",
+        choices=["gaff", "gaff2"],
+        default="gaff2",
+        help="GAFF flavor to use (default gaff2)",
+    )
 
     args = parser.parse_args()
 
@@ -228,11 +258,29 @@ def main():
                 plumed_cfg["log_frequency"] = int(args.plumed_log_frequency)
         overrides = {"defaults": {"plumed": plumed_cfg}} if plumed_cfg else None
 
+        if args.ligand:
+            lig_override = {
+                "systems": [
+                    {
+                        "ligand": args.ligand,
+                        "ligand_charge": args.ligand_charge,
+                        "ligand_name": args.ligand_name,
+                        "ligand_charge_method": args.ligand_charge_method,
+                        "ligand_gaff": args.ligand_gaff,
+                    }
+                ]
+            }
+            overrides = _deep_update(overrides or {}, lig_override)
+
         # Systemic Simulation path (YAML-driven)
         if system.lower().endswith((".yml", ".yaml")):
             if args.config:
                 print(
                     "Warning: --config is ignored for Systemic Simulations (YAML files)."
+                )
+            if args.ligand:
+                print(
+                    "Warning: --ligand flags are ignored for Systemic Simulations; set ligand fields inside the YAML systems[]."
                 )
             if args.dry_run:
                 plan = resolve_plan(system, args.output)

@@ -16,6 +16,13 @@ fastmds simulate -system job.yml -o simulate_output   [--analyze] [--frames "0,-
 fastmds simulate -system protein.pdb -o simulate_output --config config.yml   [--analyze] [--frames "0,-1,10"] [--atoms protein] [--slides True|False] [--dry-run]
 ```
 
+### One-shot protein–ligand (auto GAFF)
+```bash
+fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 \
+	--ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output
+```
+Notes: requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`); ligand file may be SDF or MOL2.
+
 **Notes**
 - `-system` may also be provided as `-s` or `--system`.
 - `--slides` defaults to **True**; set `--slides False` to disable.

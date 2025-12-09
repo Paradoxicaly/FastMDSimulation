@@ -5,6 +5,7 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 ## Workflows at a glance
 - **Systemic (YAML)**: describe one or many systems, defaults, and staged MD plan in a single file. Best for reproducibility and sweep-style runs.
 - **One-shot (PDB)**: point at a PDB (plus optional config overrides) for a fast, single-system run.
+- **One-shot (protein–ligand)**: point at a protein PDB plus a ligand SDF/MOL2; the tool will fix the protein, GAFF-parameterize the ligand with AmberTools, build a solvated complex, then run the standard OpenMM stages.
 - **Dry run**: add `--dry-run` to see the resolved plan and the exact `fastmda analyze` commands (no compute).
 
 ## Pipeline anatomy
@@ -36,6 +37,12 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 - **Project root**: `<output>/<project>/` containing logs, configs, and stage subfolders.
 - **Per stage**: state/data reporters, checkpoints, optional PLUMED logs, and stage-level timing.
 - **Analysis** (when enabled): FastMDAnalysis reports and slides under the project directory.
+
+## Protein–ligand usage
+- Requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`).
+- CLI one-shot: `fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 --ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output`.
+- YAML: set per-system fields `ligand`, `ligand_charge`, `ligand_name`, `ligand_gaff`, `ligand_charge_method`; the system will be converted to Amber inputs automatically.
+- You can retain heterogens/waters during PDB fixing with `keep_heterogens: true` / `keep_water: true` in the system entry.
 
 ## Running on clusters
 - PBS/SLURM templates are in `examples/pbs_options.yml` and `examples/slurm_options.yml`; submit helpers live in `scripts/submit_pbs_with_analysis.sh` and `scripts/submit_slurm_with_analysis.sh`.

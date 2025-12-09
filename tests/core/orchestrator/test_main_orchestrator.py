@@ -7,6 +7,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 from fastmdsimulation.core.orchestrator import run_from_yaml
+import fastmdsimulation.core.orchestrator as orch
 
 
 class TestMainOrchestrator:
@@ -92,6 +93,42 @@ class TestMainOrchestrator:
         # Verify simulation was built and run
         mock_build_sim.assert_called_once()
         mock_run_stage.assert_called_once()
+
+
+@patch("fastmdsimulation.core.orchestrator.build_protein_ligand_system_with_gaff")
+def test_prepare_systems_with_ligand(mock_build_gaff, tmp_path):
+    """PDB+ligand entries should be converted to Amber inputs via GAFF builder."""
+
+    mock_build_gaff.return_value = {
+        "prmtop": "/tmp/complex.prmtop",
+        "inpcrd": "/tmp/complex.inpcrd",
+        "pdb": "/tmp/complex.pdb",
+    }
+
+    cfg = {
+        "project": "proj",
+        "defaults": {"box_padding_nm": 1.0, "neutralize": True},
+        "systems": [
+            {
+                "id": "sys1",
+                "pdb": str(tmp_path / "protein.pdb"),
+                "ligand": str(tmp_path / "ligand.sdf"),
+                "ligand_charge": 0,
+                "ligand_name": "LIG",
+                "ligand_gaff": "gaff2",
+                "ligand_charge_method": "bcc",
+            }
+        ],
+        "stages": [],
+    }
+
+    out = orch._prepare_systems(cfg, tmp_path)
+    sys0 = out["systems"][0]
+    assert sys0["type"] == "amber"
+    assert sys0["prmtop"] == "/tmp/complex.prmtop"
+    assert sys0["inpcrd"] == "/tmp/complex.inpcrd"
+    assert sys0.get("source_ligand") == str(tmp_path / "ligand.sdf")
+    mock_build_gaff.assert_called_once()
 
     @patch("fastmdsimulation.core.orchestrator._prepare_systems")
     @patch("fastmdsimulation.core.orchestrator.attach_file_logger")
