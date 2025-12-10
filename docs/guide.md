@@ -42,6 +42,7 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 - Requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`).
 - CLI one-shot: `fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 --ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output`.
 - YAML: set per-system fields `ligand`, `ligand_charge`, `ligand_name`, `ligand_gaff`, `ligand_charge_method`; the system will be converted to Amber inputs automatically.
+- Example YAML: `examples/protein_ligand.yml` (minimal protein+ligand placeholder config with GAFF ligand setup).
 - You can retain heterogens/waters during PDB fixing with `keep_heterogens: true` / `keep_water: true` in the system entry.
 
 ## Running on clusters

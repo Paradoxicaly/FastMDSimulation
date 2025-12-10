@@ -142,35 +142,9 @@ conda --version
   
 ---
 
-## Quick Start
-
-### Multi-Shot (Systemic) Simulation
-For simulating one or multiple systems. 
-> All systems and simulation parameters are specified in a `.yml` file.
-```bash
-fastmds simulate -system waterbox2nm.yml
-```
-
-### One‑Shot Simulation
-For simulations from a single raw PDB.
-```bash
-fastmds simulate -system trpcage.pdb
-```
-[Optionally] provide `.yml` simulation parameter overrides.
-```bash
-fastmds simulate -system trpcage.pdb --config config_trpcage.yml
-```
-
-> You can always add an explicit output directory with `-o <dir>` and analysis flags like `--analyze`, `--atoms`, `--frames`, `--slides`.
-
-**Analysis flags** (only when `--analyze` is present):
-- `--slides` (default **True**; set `--slides False` to disable slides)
-- `--frames` (e.g., `"0,-1,10"` subsample every 10 frames; FastMDAnalysis format)
-- `--atoms` (e.g., `protein`, `"protein and name CA"`)
-
-Analysis output is streamed line‑by‑line and prefixed with `[fastmda]` in the log.
-
----
+**Quickstart:** See the full walkthrough in the documentation Quickstart page. Fastest reminders:
+- Systemic YAML run: `fastmds simulate -system job.yml -o simulate_output [--analyze]`
+- One-shot PDB: `fastmds simulate -system protein.pdb --config config.yml -o simulate_output`
 
 ## Accepted Inputs 
 

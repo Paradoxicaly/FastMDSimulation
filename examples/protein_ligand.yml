@@ -1,0 +1,33 @@
+# Minimal protein–ligand example (auto GAFF ligand via AmberTools)
+# Requires AmberTools binaries (`antechamber`, `parmchk2`, `tleap`) on PATH.
+
+project: ProteinLigand
+
+defaults:
+  engine: openmm
+  platform: auto     # auto→CUDA→OpenCL→CPU; set CPU to force
+  temperature_K: 300
+  timestep_fs: 2.0
+  constraints: HBonds
+  box_padding_nm: 1.0
+  ionic_strength_molar: 0.15
+  report_interval: 1000
+  checkpoint_interval: 5000
+  # forcefield: ["charmm36.xml", "charmm36/water.xml"]  # optional override
+
+stages:
+  - { name: minimize,   steps: 0 }
+  - { name: nvt,        steps: 5000, ensemble: NVT }
+  - { name: npt,        steps: 5000, ensemble: NPT }
+  - { name: production, steps: 10000, ensemble: NPT }
+
+systems:
+  - id: protein_ligand
+    pdb: protein.pdb          # replace with your protein structure
+    ligand: ligand.sdf        # SDF or MOL2; GAFF parameterization via AmberTools
+    ligand_charge: 0
+    ligand_name: LIG
+    ligand_gaff: gaff2
+    ligand_charge_method: bcc
+    # keep_heterogens: true    # retain heterogens/waters during PDB fixing
+    # forcefield: ["charmm36.xml", "charmm36/water.xml"]  # per-system override

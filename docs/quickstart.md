@@ -19,9 +19,28 @@ fastmds simulate -system protein.pdb -o simulate_output --config config.yml   [-
 ### One-shot protein–ligand (auto GAFF)
 ```bash
 fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 \
-	--ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output
+  --ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output
 ```
-Notes: requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`); ligand file may be SDF or MOL2.
+Notes: requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`); ligand file may be SDF or MOL2. See `examples/protein_ligand.yml` for a minimal YAML-driven setup.
+
+**Protein–ligand YAML example (minimal)**
+```yaml
+project: prot_lig
+defaults:
+  ligand:
+    gaff: gaff2
+    charge_method: bcc
+systems:
+  - id: prot_lig
+    pdb: protein.pdb
+    ligand: ligand.sdf
+    ligand_charge: 0
+    ligand_name: LIG
+```
+Run it:
+```bash
+fastmds simulate -system examples/protein_ligand.yml -o simulate_output
+```
 
 **Notes**
 - `-system` may also be provided as `-s` or `--system`.
@@ -37,6 +56,18 @@ from fastmdsimulation import FastMDSimulation
 
 fastmds = FastMDSimulation("protein.pdb", output="simulate_output", config=None)
 project_dir = fastmds.simulate(analyze=True, frames="0,-1,10", atoms="protein", slides=True)
+
+# Protein–ligand (Python API)
+fastmds = FastMDSimulation(
+	system="protein.pdb",
+	ligand="ligand.sdf",
+	ligand_charge=0,
+	ligand_name="LIG",
+	ligand_gaff="gaff2",
+	ligand_charge_method="bcc",
+	output="simulate_output",
+)
+project_dir = fastmds.simulate()
 ```
 
 ---
