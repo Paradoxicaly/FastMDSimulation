@@ -15,8 +15,8 @@ import subprocess
 from pathlib import Path
 from typing import Dict, Literal
 
-from .pdbfix import fix_pdb_with_pdbfixer
 from ..utils.logging import get_logger
+from .pdbfix import fix_pdb_with_pdbfixer
 
 logger = get_logger("ligand")
 

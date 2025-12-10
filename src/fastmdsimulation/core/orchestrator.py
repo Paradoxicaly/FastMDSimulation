@@ -21,8 +21,8 @@ except Exception:
     import importlib_metadata  # type: ignore
 
 from ..engines.openmm_engine import build_simulation_from_spec, run_stage
-from .ligand import build_protein_ligand_system_with_gaff
 from ..utils.logging import attach_file_logger, get_logger
+from .ligand import build_protein_ligand_system_with_gaff
 from .pdbfix import fix_pdb_with_pdbfixer  # strict fixer (no circular import)
 
 logger = get_logger("orchestrator")

@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from fastmdsimulation.core.orchestrator import run_from_yaml
 import fastmdsimulation.core.orchestrator as orch
+from fastmdsimulation.core.orchestrator import run_from_yaml
 
 
 class TestMainOrchestrator:
