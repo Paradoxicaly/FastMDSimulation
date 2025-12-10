@@ -179,7 +179,7 @@ END
 def pytest_collection_modifyitems(config, items):
     """Skip tests marked 'requires_openmm' if OpenMM is not available."""
     try:
-        pass
+        import openmm  # type: ignore
 
         openmm_available = True
     except ImportError:
@@ -188,5 +188,9 @@ def pytest_collection_modifyitems(config, items):
     skip_openmm = pytest.mark.skip(reason="OpenMM not available")
 
     for item in items:
-        if "requires_openmm" in item.keywords and not openmm_available:
-            item.add_marker(skip_openmm)
+        if not openmm_available:
+            if "requires_openmm" in item.keywords:
+                item.add_marker(skip_openmm)
+            # Broadly skip engine OpenMM suites when dependency is missing
+            if "tests/engines/" in item.nodeid or "engines/openmm" in item.nodeid:
+                item.add_marker(skip_openmm)

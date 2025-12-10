@@ -1,6 +1,9 @@
 from unittest.mock import Mock, patch
 
 import pytest
+
+# Skip the module entirely if OpenMM is not available (e.g., lightweight CI)
+pytest.importorskip("openmm")
 from openmm.app import (
     PME,
     AllBonds,

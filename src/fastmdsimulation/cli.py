@@ -363,19 +363,13 @@ def main():
                         )
                         print("    → fastmda command:", " ".join(map(str, cmd)))
                 return
+            kwargs = {
+                "outdir": args.output,
+                "config": args.config,
+            }
             if overrides:
-                project_dir = simulate_from_pdb(
-                    system,
-                    outdir=args.output,
-                    config=args.config,
-                    overrides=overrides,
-                )
-            else:
-                project_dir = simulate_from_pdb(
-                    system,
-                    outdir=args.output,
-                    config=args.config,
-                )
+                kwargs["overrides"] = overrides
+            project_dir = simulate_from_pdb(system, **kwargs)
 
         # Attach file logger (plain ISO for audits) and optionally run analysis
         attach_file_logger(str(Path(project_dir) / "fastmds.log"), style="plain")

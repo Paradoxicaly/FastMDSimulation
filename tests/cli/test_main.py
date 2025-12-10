@@ -195,7 +195,6 @@ class TestCLIMain:
             "test.pdb",
             outdir="simulate_output",
             config="config.yaml",
-            overrides=None,
         )
         mock_analyze.assert_called_once_with(
             "/tmp/project", slides=False, frames="0,10", atoms="backbone"

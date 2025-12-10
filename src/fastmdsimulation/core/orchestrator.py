@@ -238,14 +238,14 @@ def _expand_runs(cfg: Dict[str, Any], outdir: str) -> Dict[str, Any]:
             run = {
                 "system_id": sys_cfg.get("id", "system"),
                 "temperature_K": T,
-                "run_dir": str(simdir),
+                "run_dir": simdir.as_posix(),
                 "stages": cfg["stages"],
                 "input": sys_cfg,  # full spec (type + files)
             }
             if "forcefield" in sys_cfg:
                 run["forcefield"] = sys_cfg["forcefield"]
             runs.append(run)
-    return {"project": project, "output_dir": str(base), "runs": runs}
+    return {"project": project, "output_dir": base.as_posix(), "runs": runs}
 
 
 def _steps_to_ps(steps: int, timestep_fs: float) -> float:
@@ -253,7 +253,7 @@ def _steps_to_ps(steps: int, timestep_fs: float) -> float:
 
 
 def resolve_plan(config_path: str, outdir: str) -> Dict[str, Any]:
-    cfg = yaml.safe_load(open(config_path))
+    cfg = yaml.safe_load(Path(config_path).read_text())
     plan = _expand_runs(cfg, outdir)
     tfs = float(cfg.get("defaults", {}).get("timestep_fs", 2.0))
     enriched = []

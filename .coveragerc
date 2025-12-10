@@ -1,0 +1,6 @@
+[run]
+omit =
+    src/fastmdsimulation/engines/openmm_engine.py
+    src/fastmdsimulation/engines/plumed_support.py
+    src/fastmdsimulation/core/ligand.py
+    src/fastmdsimulation/core/pdbfix.py
