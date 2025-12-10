@@ -82,9 +82,7 @@ def _adjust_plumed_paths(script: str, stage_dir: Path) -> str:
             if match:
                 filename = Path(match.group(1)).name
                 new_path = stage_dir / filename
-                line = line.replace(
-                    match.group(1), str(new_path).replace("\\", "/")
-                )
+                line = line.replace(match.group(1), str(new_path).replace("\\", "/"))
         lines.append(line)
 
     return "\n".join(lines)

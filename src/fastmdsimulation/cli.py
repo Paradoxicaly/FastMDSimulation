@@ -246,11 +246,7 @@ def main():
         system = args.system
 
         plumed_cfg = None
-        if (
-            args.plumed
-            or args.plumed_script
-            or args.plumed_log_frequency is not None
-        ):
+        if args.plumed or args.plumed_script or args.plumed_log_frequency is not None:
             plumed_cfg = {"enabled": True}
             if args.plumed_script:
                 plumed_cfg["script"] = args.plumed_script
@@ -298,7 +294,9 @@ def main():
                 if overrides and overrides.get("defaults", {}).get("plumed"):
                     pcfg = overrides["defaults"]["plumed"]
                     desc = pcfg.get("script") or "(no script set)"
-                    print(f"PLUMED: enabled | script={desc} | log_frequency={pcfg.get('log_frequency', 100)}")
+                    print(
+                        f"PLUMED: enabled | script={desc} | log_frequency={pcfg.get('log_frequency', 100)}"
+                    )
                 for r in plan["runs"]:
                     print(
                         f'- Run: {r["system_id"]} @ {r["temperature_K"]} K -> {r["run_dir"]}'
@@ -318,12 +316,17 @@ def main():
                         )
                         print("    → fastmda command:", " ".join(map(str, cmd)))
                 return
-            project_dir = run_from_yaml(system, args.output, overrides=overrides)
+            if overrides:
+                project_dir = run_from_yaml(system, args.output, overrides=overrides)
+            else:
+                project_dir = run_from_yaml(system, args.output)
 
         # One-Shot Simulation path (PDB-driven)
         else:
             if args.dry_run:
-                plan = _resolve_plan_from_pdb(system, args.output, args.config, overrides)
+                plan = _resolve_plan_from_pdb(
+                    system, args.output, args.config, overrides
+                )
                 print("=== DRY RUN (ONE-SHOT SIMULATION) ===")
                 print(f'Project: {plan["project"]}')
                 print(f'Output:  {plan["output_dir"]}')
@@ -338,7 +341,9 @@ def main():
                 if overrides and overrides.get("defaults", {}).get("plumed"):
                     pcfg = overrides["defaults"]["plumed"]
                     desc = pcfg.get("script") or "(no script set)"
-                    print(f"PLUMED: enabled | script={desc} | log_frequency={pcfg.get('log_frequency', 100)}")
+                    print(
+                        f"PLUMED: enabled | script={desc} | log_frequency={pcfg.get('log_frequency', 100)}"
+                    )
                 for r in plan["runs"]:
                     print(
                         f'- Run: {r["system_id"]} @ {r["temperature_K"]} K -> {r["run_dir"]}'

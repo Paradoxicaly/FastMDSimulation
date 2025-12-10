@@ -1,10 +1,15 @@
 from pathlib import Path
 
-from fastmdsimulation.engines.plumed_support import _adjust_plumed_paths, merge_plumed_configs
+from fastmdsimulation.engines.plumed_support import (
+    _adjust_plumed_paths,
+    merge_plumed_configs,
+)
 
 
 def test_merge_plumed_configs_stage_overrides_defaults():
-    defaults = {"plumed": {"enabled": False, "script": "base.dat", "log_frequency": 250}}
+    defaults = {
+        "plumed": {"enabled": False, "script": "base.dat", "log_frequency": 250}
+    }
     stage = {"plumed": {"enabled": True, "script": "stage.dat"}}
 
     merged = merge_plumed_configs(defaults, stage)

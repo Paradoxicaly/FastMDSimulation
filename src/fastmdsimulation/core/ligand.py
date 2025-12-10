@@ -115,7 +115,12 @@ def parameterize_ligand_with_gaff(
     ]
     _run(cmd, work)
 
-    return {"mol2": str(gaff_mol2), "frcmod": str(frcmod), "ligand_name": name, "gaff": gaff}
+    return {
+        "mol2": str(gaff_mol2),
+        "frcmod": str(frcmod),
+        "ligand_name": name,
+        "gaff": gaff,
+    }
 
 
 def build_protein_ligand_system_with_gaff(
@@ -206,4 +211,11 @@ def build_protein_ligand_system_with_gaff(
         f"Built protein–ligand system with GAFF: prmtop={prmtop}, inpcrd={inpcrd}, pdb={pdb_out}"
     )
 
-    return {"prmtop": prmtop, "inpcrd": inpcrd, "pdb": pdb_out, "ligand": lig_out["mol2"], "frcmod": lig_out["frcmod"], "fixed_protein": str(fixed_protein)}
+    return {
+        "prmtop": prmtop,
+        "inpcrd": inpcrd,
+        "pdb": pdb_out,
+        "ligand": lig_out["mol2"],
+        "frcmod": lig_out["frcmod"],
+        "fixed_protein": str(fixed_protein),
+    }

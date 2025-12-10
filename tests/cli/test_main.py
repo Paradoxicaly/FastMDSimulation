@@ -78,9 +78,7 @@ class TestCLIMain:
                 main()
 
             mock_setup_console.assert_called_once()
-            mock_resolve_plan.assert_called_once_with(
-                yaml_path, "simulate_output"
-            )
+            mock_resolve_plan.assert_called_once_with(yaml_path, "simulate_output")
         finally:
             os.unlink(yaml_path)
 
@@ -104,9 +102,7 @@ class TestCLIMain:
             ):
                 main()
 
-            mock_run_yaml.assert_called_once_with(
-                yaml_path, "simulate_output", overrides=None
-            )
+            mock_run_yaml.assert_called_once_with(yaml_path, "simulate_output")
             mock_attach_logger.assert_called_once()
             mock_analyze.assert_called_once_with(
                 "/tmp/project", slides=True, frames=None, atoms=None
@@ -232,7 +228,15 @@ class TestCLIMain:
             "test.pdb",
             outdir="simulate_output",
             config=None,
-            overrides={"defaults": {"plumed": {"enabled": True, "script": "bias.dat", "log_frequency": 50}}},
+            overrides={
+                "defaults": {
+                    "plumed": {
+                        "enabled": True,
+                        "script": "bias.dat",
+                        "log_frequency": 50,
+                    }
+                }
+            },
         )
 
     @patch("fastmdsimulation.cli.setup_console")

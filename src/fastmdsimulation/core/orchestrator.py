@@ -163,7 +163,9 @@ def _prepare_systems(cfg: Dict[str, Any], base: Path) -> Dict[str, Any]:
                 ligand_charge = s.get("ligand_charge")
                 ligand_name = s.get("ligand_name", "LIG")
                 gaff = s.get("ligand_gaff", "gaff2")
-                box_padding_nm = float(s.get("box_padding_nm", defaults.get("box_padding_nm", 1.0)))
+                box_padding_nm = float(
+                    s.get("box_padding_nm", defaults.get("box_padding_nm", 1.0))
+                )
                 neutralize = bool(s.get("neutralize", defaults.get("neutralize", True)))
                 keep_heterogens = bool(s.get("keep_heterogens", False))
                 keep_water = bool(s.get("keep_water", False))
@@ -207,7 +209,9 @@ def _prepare_systems(cfg: Dict[str, Any], base: Path) -> Dict[str, Any]:
                     fix_pdb_with_pdbfixer(str(in_pdb), str(fixed_path), ph=ph)
                     s["source_pdb"] = str(in_pdb)
                     s["pdb"] = str(fixed_path)
-                    s["fixed_pdb"] = str(fixed_path)  # record where the fixed file lives
+                    s["fixed_pdb"] = str(
+                        fixed_path
+                    )  # record where the fixed file lives
 
         # amber/gromacs/charmm: pass-through
         new_systems.append(s)
