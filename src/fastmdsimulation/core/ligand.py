@@ -180,7 +180,7 @@ def build_protein_ligand_system_with_gaff(
     leapin = out_prefix.with_suffix(".leap.in")
 
     leap_lines = [
-        f"source leaprc.protein.ff14SB",
+        "source leaprc.protein.ff14SB",
         f"source leaprc.{gaff}",
         "source leaprc.water.tip3p",
         f"loadamberparams {Path(lig_out['frcmod']).name}",
@@ -207,8 +207,12 @@ def build_protein_ligand_system_with_gaff(
     # Run tleap in the working directory so relative paths resolve
     _run(["tleap", "-f", str(leapin.name)], cwd=out_prefix.parent)
 
+    # GAFF outputs written; log key artifacts
     logger.info(
-        f"Built protein–ligand system with GAFF: prmtop={prmtop}, inpcrd={inpcrd}, pdb={pdb_out}"
+        "Built protein–ligand system with GAFF: prmtop=%s, inpcrd=%s, pdb=%s",
+        prmtop,
+        inpcrd,
+        pdb_out,
     )
 
     return {

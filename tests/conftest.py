@@ -179,7 +179,7 @@ END
 def pytest_collection_modifyitems(config, items):
     """Skip tests marked 'requires_openmm' if OpenMM is not available."""
     try:
-        import openmm  # type: ignore
+        import openmm  # type: ignore  # noqa: F401
 
         openmm_available = True
     except ImportError:

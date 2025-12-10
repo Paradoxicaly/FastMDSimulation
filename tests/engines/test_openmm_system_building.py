@@ -2,11 +2,17 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-# Skip the module entirely if OpenMM is not available (e.g., lightweight CI)
+# flake8 E402: allow import guard before heavy deps
 pytest.importorskip("openmm")
-from openmm.app import AmberPrmtopFile, CharmmPsfFile, ForceField, GromacsTopFile
 
-from fastmdsimulation.engines.openmm_engine import (
+from openmm.app import (  # noqa: E402
+    AmberPrmtopFile,
+    CharmmPsfFile,
+    ForceField,
+    GromacsTopFile,
+)
+
+from fastmdsimulation.engines.openmm_engine import (  # noqa: E402
     build_simulation_from_spec,
     create_system,
 )

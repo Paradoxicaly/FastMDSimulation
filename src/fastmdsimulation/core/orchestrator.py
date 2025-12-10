@@ -233,7 +233,7 @@ def _expand_runs(cfg: Dict[str, Any], outdir: str) -> Dict[str, Any]:
     runs = []
     for sys_cfg in cfg["systems"]:
         for T in temps:
-            sim_id = f'{sys_cfg.get("id","system")}_T{T}'
+            sim_id = f'{sys_cfg.get("id", "system")}_T{T}'
             simdir = base / sim_id
             run = {
                 "system_id": sys_cfg.get("id", "system"),
