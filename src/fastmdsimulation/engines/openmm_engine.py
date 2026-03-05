@@ -427,19 +427,21 @@ def _build_protein_ligand_simulation(
     ligand_file = Path(spec["ligand"])
     ext = ligand_file.suffix.lower()
     if ext not in (".sdf", ".mol2"):
-        raise ValueError(
-            f"Unsupported ligand format: {ligand_file}. Use SDF or MOL2."
-        )
+        raise ValueError(f"Unsupported ligand format: {ligand_file}. Use SDF or MOL2.")
 
     ligand_mol = Molecule.from_file(str(ligand_file), file_format=ext.lstrip("."))
     if not ligand_mol.conformers:
         ligand_mol.generate_conformers(n_conformers=1)
     ligand_mol.name = str(spec.get("ligand_name") or ligand_mol.name or "LIG")
 
-    ff_files = spec.get("forcefield") or defaults.get("forcefield") or [
-        "amber14/protein.ff14SB.xml",
-        "amber14/tip3p.xml",
-    ]
+    ff_files = (
+        spec.get("forcefield")
+        or defaults.get("forcefield")
+        or [
+            "amber14/protein.ff14SB.xml",
+            "amber14/tip3p.xml",
+        ]
+    )
     ligand_ff = str(spec.get("ligand_forcefield", "openff-2.2.1"))
     platform_name = defaults.get("platform", "auto")
     platform_props = defaults.get("platform_properties", {})
