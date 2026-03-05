@@ -215,7 +215,6 @@ class TestCLIMain:
                 "--system",
                 "test.pdb",
                 "--plumed",
-                "--plumed-script",
                 "bias.dat",
                 "--plumed-log-frequency",
                 "50",

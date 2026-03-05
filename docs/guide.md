@@ -5,7 +5,7 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 ## Workflows at a glance
 - **Systemic (YAML)**: describe one or many systems, defaults, and staged MD plan in a single file. Best for reproducibility and sweep-style runs.
 - **One-shot (PDB)**: point at a PDB (plus optional config overrides) for a fast, single-system run.
-- **One-shot (protein–ligand)**: point at a protein PDB plus a ligand SDF/MOL2; the tool will fix the protein, GAFF-parameterize the ligand with AmberTools, build a solvated complex, then run the standard OpenMM stages.
+- **One-shot (protein–ligand)**: point at a protein PDB plus a ligand SDF/MOL2; the tool fixes the protein and runs with AMBER ff14SB (protein) + TIP3P (water) + OpenFF Sage 2.x (ligand) through OpenMM.
 - **Dry run**: add `--dry-run` to see the resolved plan and the exact `fastmda analyze` commands (no compute).
 
 ## Pipeline anatomy
@@ -29,7 +29,7 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 - **Output**: analysis logs are prefixed `[fastmda]` in the run log; artifacts are placed in the project output directory under each run.
 
 ## PLUMED integration
-- Enable globally: `--plumed` plus `--plumed-script plumed.dat` (CLI) or `defaults.plumed.enabled: true` (YAML).
+- Enable globally: `--plumed plumed.dat` (CLI) or `defaults.plumed.enabled: true` (YAML).
 - Per-stage overrides: `stages[*].plumed` can flip `enabled`, change `script`, adjust `log_frequency`.
 - Outputs: PLUMED writes per-stage files (e.g., COLVAR, HILLS) in the corresponding stage directory.
 
@@ -39,10 +39,10 @@ This guide expands on the README and quickstart with more detail on how FastMDSi
 - **Analysis** (when enabled): FastMDAnalysis reports and slides under the project directory.
 
 ## Protein–ligand usage
-- Requires AmberTools on PATH (`antechamber`, `parmchk2`, `tleap`).
-- CLI one-shot: `fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 --ligand-name LIG --ligand-gaff gaff2 --ligand-charge-method bcc -o simulate_output`.
-- YAML: set per-system fields `ligand`, `ligand_charge`, `ligand_name`, `ligand_gaff`, `ligand_charge_method`; the system will be converted to Amber inputs automatically.
-- Example YAML: `examples/protein_ligand.yml` (minimal protein+ligand placeholder config with GAFF ligand setup).
+- Uses OpenMM-native setup with AMBER ff14SB + TIP3P + OpenFF Sage 2.x.
+- CLI one-shot: `fastmds simulate -s protein.pdb --ligand ligand.sdf --ligand-charge 0 --ligand-name LIG -o simulate_output`.
+- YAML: set per-system fields `ligand`, `ligand_charge`, `ligand_name`; force field is applied as ff14SB + TIP3P for protein–ligand systems.
+- Example YAML: `examples/protein_ligand.yml`.
 - You can retain heterogens/waters during PDB fixing with `keep_heterogens: true` / `keep_water: true` in the system entry.
 
 ## Running on clusters

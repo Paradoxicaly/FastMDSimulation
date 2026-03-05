@@ -6,6 +6,8 @@ dependencies:
   - python=3.10
   - openmm=8.*
   - openmmforcefields>=0.11
+  - openff-toolkit>=0.16
+  - rdkit
   - pdbfixer>=1.8
   - mdtraj>=1.9.9
   - pyyaml>=6

@@ -142,9 +142,35 @@ conda --version
   
 ---
 
-**Quickstart:** See the full walkthrough in the documentation Quickstart page. Fastest reminders:
-- Systemic YAML run: `fastmds simulate -system job.yml -o simulate_output [--analyze]`
-- One-shot PDB: `fastmds simulate -system protein.pdb --config config.yml -o simulate_output`
+## Quick Start
+
+### Multi-Shot (Systemic) Simulation
+For simulating one or multiple systems. 
+> All systems and simulation parameters are specified in a `.yml` file.
+```bash
+fastmds simulate -system waterbox2nm.yml
+```
+
+### One‑Shot Simulation
+For simulations from a single raw PDB.
+```bash
+fastmds simulate -system trpcage.pdb
+```
+[Optionally] provide `.yml` simulation parameter overrides.
+```bash
+fastmds simulate -system trpcage.pdb --config config_trpcage.yml
+```
+
+> You can always add an explicit output directory with `-o <dir>` and analysis flags like `--analyze`, `--atoms`, `--frames`, `--slides`.
+
+**Analysis flags** (only when `--analyze` is present):
+- `--slides` (default **True**; set `--slides False` to disable slides)
+- `--frames` (e.g., `"0,-1,10"` subsample every 10 frames; FastMDAnalysis format)
+- `--atoms` (e.g., `protein`, `"protein and name CA"`)
+
+Analysis output is streamed line‑by‑line and prefixed with `[fastmda]` in the log.
+
+---
 
 ## Accepted Inputs 
 
@@ -340,25 +366,6 @@ fastmds.simulate(
 - If `system` ends with `.yml/.yaml`, Systemic Simulation executed; `config` is ignored.
 - If `system` is a `.pdb`, PDBFixer runs (strict), then a temporary `job.auto.yml` is generated and executed.
 
-### PLUMED (optional biasing/analysis)
-- Install `openmm-plumed` (Linux/WSL recommended): `mamba install -c conda-forge openmm-plumed`.
-- Enable globally via CLI flags (applies to all stages):
-  ```bash
-  fastmds simulate -system job.yml --plumed --plumed-script plumed.dat --plumed-log-frequency 100
-  ```
-- Or in YAML, either defaults or per-stage:
-  ```yaml
-  defaults:
-    plumed:
-      enabled: true
-      script: plumed.dat
-      log_frequency: 100
-  stages:
-    - { name: minimize, steps: 0 }
-    - { name: nvt, steps: 5000, plumed: { enabled: true, script: stage_nvt.dat } }
-  ```
-- Outputs (COLVAR, HILLS, etc.) are rewritten to each stage directory automatically.
-
 ---
 
 ## Dry‑run (plan only)
@@ -504,7 +511,6 @@ Aina, A. (2025) "FastMDSimulation: Software for Automated Molecular Dynamics Sim
 - `OpenMM` for the high-performance molecular dynamics engine
 - `openmmforcefields` for providing CHARMM36 and other force fields
 - `PDBFixer` for structure preparation and repair
-- `PLUMED` for optional biasing and collective variable support via OpenMM integration
 - `FastMDAnalysis` for automated analysis of MD trajectories
 - `NumPy/SciPy` for efficient numerical computations
 

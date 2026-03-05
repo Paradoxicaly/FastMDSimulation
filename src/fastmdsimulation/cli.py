@@ -176,11 +176,6 @@ def main():
     )
     p_sim.add_argument(
         "--plumed",
-        action="store_true",
-        help="Enable PLUMED using a script path (use --plumed-script to specify)",
-    )
-    p_sim.add_argument(
-        "--plumed-script",
         default=None,
         help="Path to a PLUMED input file to apply to all stages (unless overridden in YAML)",
     )
@@ -200,7 +195,7 @@ def main():
     p_sim.add_argument(
         "--ligand",
         default=None,
-        help="Ligand structure file (SDF or MOL2) for GAFF/GAFF2 auto-parameterization",
+        help="Ligand structure file (SDF or MOL2) for OpenFF Sage 2.x ligand parameterization",
     )
     p_sim.add_argument(
         "--ligand-charge",
@@ -213,18 +208,6 @@ def main():
         type=str,
         default="LIG",
         help="Ligand residue name (default LIG)",
-    )
-    p_sim.add_argument(
-        "--ligand-charge-method",
-        choices=["bcc", "gas", "resp"],
-        default="bcc",
-        help="Charge assignment method for antechamber (default bcc)",
-    )
-    p_sim.add_argument(
-        "--ligand-gaff",
-        choices=["gaff", "gaff2"],
-        default="gaff2",
-        help="GAFF flavor to use (default gaff2)",
     )
 
     args = parser.parse_args()
@@ -246,10 +229,10 @@ def main():
         system = args.system
 
         plumed_cfg = None
-        if args.plumed or args.plumed_script or args.plumed_log_frequency is not None:
+        if args.plumed or args.plumed_log_frequency is not None:
             plumed_cfg = {"enabled": True}
-            if args.plumed_script:
-                plumed_cfg["script"] = args.plumed_script
+            if args.plumed:
+                plumed_cfg["script"] = args.plumed
             if args.plumed_log_frequency is not None:
                 plumed_cfg["log_frequency"] = int(args.plumed_log_frequency)
         overrides = {"defaults": {"plumed": plumed_cfg}} if plumed_cfg else None
@@ -261,8 +244,6 @@ def main():
                         "ligand": args.ligand,
                         "ligand_charge": args.ligand_charge,
                         "ligand_name": args.ligand_name,
-                        "ligand_charge_method": args.ligand_charge_method,
-                        "ligand_gaff": args.ligand_gaff,
                     }
                 ]
             }

@@ -22,7 +22,7 @@ except Exception:
 
 from ..engines.openmm_engine import build_simulation_from_spec, run_stage
 from ..utils.logging import attach_file_logger, get_logger
-from .ligand import build_protein_ligand_system_with_gaff
+from .ligand import prepare_protein_ligand_inputs
 from .pdbfix import fix_pdb_with_pdbfixer  # strict fixer (no circular import)
 
 logger = get_logger("orchestrator")
@@ -156,42 +156,36 @@ def _prepare_systems(cfg: Dict[str, Any], base: Path) -> Dict[str, Any]:
             # per-system pH overrides defaults if provided
             ph = float(s.get("ph", default_ph))
 
-            # Ligand-bearing path: build an Amber system with GAFF
+            # Ligand-bearing path: prepare normalized inputs for OpenMM/OpenFF
             if stype == "pdb_ligand":
                 ligand = Path(s["ligand"]).expanduser().resolve()
-                output_prefix = build_dir / f"{Path(system_id).stem}_complex"
                 ligand_charge = s.get("ligand_charge")
                 ligand_name = s.get("ligand_name", "LIG")
-                gaff = s.get("ligand_gaff", "gaff2")
-                box_padding_nm = float(
-                    s.get("box_padding_nm", defaults.get("box_padding_nm", 1.0))
-                )
-                neutralize = bool(s.get("neutralize", defaults.get("neutralize", True)))
                 keep_heterogens = bool(s.get("keep_heterogens", False))
                 keep_water = bool(s.get("keep_water", False))
 
-                built = build_protein_ligand_system_with_gaff(
+                prepared = prepare_protein_ligand_inputs(
                     s.get("pdb") or s.get("fixed_pdb"),
                     str(ligand),
-                    str(output_prefix),
+                    str(build_dir),
                     ph=ph,
-                    charge_method=s.get("ligand_charge_method", "bcc"),
                     net_charge=ligand_charge,
                     ligand_name=ligand_name,
-                    gaff=gaff,
-                    box_padding_nm=box_padding_nm,
-                    neutralize=neutralize,
                     keep_heterogens=keep_heterogens,
                     keep_water=keep_water,
                 )
 
-                # Convert to Amber-style spec for downstream engine
                 s.update(
                     {
-                        "type": "amber",
-                        "prmtop": built["prmtop"],
-                        "inpcrd": built["inpcrd"],
-                        "pdb": built["pdb"],
+                        "type": "pdb_ligand",
+                        "pdb": prepared["pdb"],
+                        "ligand": prepared["ligand"],
+                        "ligand_name": prepared["ligand_name"],
+                        "ligand_forcefield": prepared["ligand_forcefield"],
+                        "forcefield": [
+                            "amber14/protein.ff14SB.xml",
+                            "amber14/tip3p.xml",
+                        ],
                         "source_pdb": s.get("pdb") or s.get("fixed_pdb"),
                         "source_ligand": str(ligand),
                     }
@@ -319,6 +313,10 @@ def _collect_system_paths(sys_cfg: Dict[str, Any]) -> List[Path]:
             paths.append(Path(sys_cfg["source_pdb"]))
         if sys_cfg.get("fixed_pdb"):
             paths.append(Path(sys_cfg["fixed_pdb"]))
+    elif stype == "pdb_ligand":
+        for k in ("pdb", "source_pdb", "fixed_pdb", "ligand", "source_ligand"):
+            if sys_cfg.get(k):
+                paths.append(Path(sys_cfg[k]))
     elif stype == "amber":
         for k in ("prmtop", "inpcrd", "rst7"):
             if sys_cfg.get(k):

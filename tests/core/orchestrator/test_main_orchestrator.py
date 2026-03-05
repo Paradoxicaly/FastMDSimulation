@@ -95,14 +95,15 @@ class TestMainOrchestrator:
         mock_run_stage.assert_called_once()
 
 
-@patch("fastmdsimulation.core.orchestrator.build_protein_ligand_system_with_gaff")
-def test_prepare_systems_with_ligand(mock_build_gaff, tmp_path):
-    """PDB+ligand entries should be converted to Amber inputs via GAFF builder."""
+@patch("fastmdsimulation.core.orchestrator.prepare_protein_ligand_inputs")
+def test_prepare_systems_with_ligand(mock_prepare_ligand, tmp_path):
+    """PDB+ligand entries should be normalized for OpenFF ligand simulation."""
 
-    mock_build_gaff.return_value = {
-        "prmtop": "/tmp/complex.prmtop",
-        "inpcrd": "/tmp/complex.inpcrd",
-        "pdb": "/tmp/complex.pdb",
+    mock_prepare_ligand.return_value = {
+        "pdb": "/tmp/protein_fixed.pdb",
+        "ligand": "/tmp/ligand.sdf",
+        "ligand_name": "LIG",
+        "ligand_forcefield": "openff-2.2.1",
     }
 
     cfg = {
@@ -115,8 +116,6 @@ def test_prepare_systems_with_ligand(mock_build_gaff, tmp_path):
                 "ligand": str(tmp_path / "ligand.sdf"),
                 "ligand_charge": 0,
                 "ligand_name": "LIG",
-                "ligand_gaff": "gaff2",
-                "ligand_charge_method": "bcc",
             }
         ],
         "stages": [],
@@ -124,11 +123,12 @@ def test_prepare_systems_with_ligand(mock_build_gaff, tmp_path):
 
     out = orch._prepare_systems(cfg, tmp_path)
     sys0 = out["systems"][0]
-    assert sys0["type"] == "amber"
-    assert sys0["prmtop"] == "/tmp/complex.prmtop"
-    assert sys0["inpcrd"] == "/tmp/complex.inpcrd"
+    assert sys0["type"] == "pdb_ligand"
+    assert sys0["pdb"] == "/tmp/protein_fixed.pdb"
+    assert sys0["ligand"] == "/tmp/ligand.sdf"
+    assert sys0["ligand_forcefield"] == "openff-2.2.1"
     assert sys0.get("source_ligand") == str(tmp_path / "ligand.sdf")
-    mock_build_gaff.assert_called_once()
+    mock_prepare_ligand.assert_called_once()
 
     @patch("fastmdsimulation.core.orchestrator._prepare_systems")
     @patch("fastmdsimulation.core.orchestrator.attach_file_logger")
